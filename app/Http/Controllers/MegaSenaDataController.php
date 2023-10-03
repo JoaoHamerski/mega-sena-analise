@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class MegaSenaDataController extends Controller
 {
-    public function __invoke()
+    public function __invoke(MegaSenaDataRequest $request)
     {
         $ballsData = $this->getDataFromAllBalls();
-        $numbers = $this->mergeNumberOcurrences($ballsData);
+        $numbers = $this->mergeNumberOccurrences($ballsData);
         $metadata = $this->getMetadata($numbers);
-        $formatted = $this->formatNumbers($numbers, $metadata);
+        $formatted = $this->formatNumbers($numbers, $metadata, $request);
 
         return Inertia::render('Home/TheHome', [
             'numbers' => $formatted,
@@ -23,27 +22,31 @@ class MegaSenaDataController extends Controller
         ]);
     }
 
-    public function formatNumbers(array $numbers, array $metadata): Collection
+    public function formatNumbers(array $numbers, array $metadata, MegaSenaDataRequest $request): Collection
     {
         $formatted = collect();
 
-        foreach ($numbers as $number => $occurences) {
+        foreach ($numbers as $number => $occurrences) {
             $formatted->push([
                 'number' => $number,
-                'occurences' => $occurences,
-                'relative_occurence' => $this->getRelativeOccurence($occurences, $metadata)
+                'occurrences' => $occurrences,
+                'relative_occurrence' => $this->getRelativeOccurrence($occurrences, $metadata)
             ]);
+        }
+
+        if ($request->get('sort')) {
+            return $formatted->sortByDesc('occurrences')->values();
         }
 
         return $formatted;
     }
 
-    public function getRelativeOccurence($occurences, $metadata)
+    public function getRelativeOccurrence($occurrences, $metadata)
     {
         $max = $metadata['max'];
         $min = $metadata['min'];
 
-        return (($occurences - $min) / ($max - $min)) * 100;
+        return (($occurrences - $min) / ($max - $min)) * 100;
     }
 
     public function getMetadata(array $numbers)
@@ -56,7 +59,7 @@ class MegaSenaDataController extends Controller
         ];
     }
 
-    public function mergeNumberOcurrences($balls): array
+    public function mergeNumberOccurrences($balls): array
     {
         $data = [];
 
@@ -89,7 +92,6 @@ class MegaSenaDataController extends Controller
     public function getDataFromBall(int $number): Collection
     {
         return Game::selectRaw("bola_{$number} as ball, COUNT(*) as count")
-            ->whereBetween('date', ['2022-01-01', '2024-01-01'])
             ->groupBy("bola_{$number}")
             ->orderByRaw("bola_{$number} ASC")
             ->get();

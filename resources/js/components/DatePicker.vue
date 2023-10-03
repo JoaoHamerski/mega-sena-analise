@@ -54,16 +54,14 @@ const onChange = (value) => {
 </template>
 
 <style lang="scss" scoped>
-::v-deep {
-  &.custom-datepicker {
-    &.mx-datepicker {
-      width: 100%;
-    }
+:deep(.custom-datepicker) {
+  &.mx-datepicker {
+    width: 100%;
+  }
 
-    .mx-icon-calendar,
-    .mx-icon-clear {
-      right: 15px;
-    }
+  .mx-icon-calendar,
+  .mx-icon-clear {
+    right: 15px;
   }
 }
 </style>

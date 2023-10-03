@@ -32,7 +32,7 @@ const chunkedNumbers = computed(() => {
             {{ number.number }}
           </div>
           <div class="text-slate-600">
-            {{ number.occurences }}
+            {{ number.occurrences }}
           </div>
         </td>
       </tr>
