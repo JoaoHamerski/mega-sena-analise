@@ -20,6 +20,7 @@ class MegaSenaDataRequest extends FormRequest
             'sort' => filter_var($this->get('sort'), FILTER_VALIDATE_BOOLEAN)
         ]);
     }
+
     /**
      * Get the validation rules that apply to the request.
      *

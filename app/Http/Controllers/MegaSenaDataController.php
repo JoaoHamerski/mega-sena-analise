@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 
 class MegaSenaDataController extends Controller
 {
+
     public function __invoke(MegaSenaDataRequest $request)
     {
         $ballsData = $this->getDataFromAllBalls();
@@ -34,7 +36,7 @@ class MegaSenaDataController extends Controller
             ]);
         }
 
-        if ($request->get('sort')) {
+        if ($request->input('sort')) {
             return $formatted->sortByDesc('occurrences')->values();
         }
 

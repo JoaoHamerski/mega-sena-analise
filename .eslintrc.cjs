@@ -9,5 +9,8 @@ module.exports = {
     ignorePatterns: ['**/vendor/**/*.js'],
     rules: {
       'no-unused-vars': ['warn']
+    },
+    globals: {
+      "route": "readonly"
     }
   }

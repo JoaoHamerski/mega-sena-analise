@@ -1,5 +1,5 @@
 <script setup>
-import NumbersCardTable from './NumbersCardTable.vue';
+import NumbersCardItems from './NumbersCardItems.vue';
 import NumbersCardForm from './NumbersCardForm.vue'
 import { ref } from 'vue';
 
@@ -20,6 +20,9 @@ const onHeatmapUpdate = (value) => {
 <template>
   <div class="bg-white w-fit mx-auto mt-10 rounded-lg shadow-lg p-5">
     <NumbersCardForm @update:heatmap="onHeatmapUpdate" /> 
-    <NumbersCardTable :numbers="numbers" />
+    <NumbersCardItems
+      :numbers="numbers"
+      :heatmap="heatmap"
+    />
   </div>
 </template>

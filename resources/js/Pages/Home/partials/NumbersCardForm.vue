@@ -5,8 +5,8 @@ import DatePicker from '@/components/DatePicker.vue'
 
 const emit = defineEmits(['update:heatmap'])
 const form = reactive({
-  // month: '',
-  sort: false,
+  month: '',
+  sort: route().params.sort === 'true' ? true : false
 })
 
 const onHeatmapInput = (value) => {

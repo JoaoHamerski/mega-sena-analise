@@ -7,6 +7,7 @@ import { resolveComponent } from '@/plugins/inertia'
 import { createPinia } from 'pinia';
 import { registerGlobalComponents } from './components';
 import { useZiggyPlugin } from '@/plugins/ziggy'
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
 const pinia =  createPinia()
 
@@ -17,6 +18,7 @@ const usePlugins = (app, inertiaPlugin) => {
 
     app.use(inertiaPlugin)
         .use(pinia)
+        .use(autoAnimatePlugin)
 }
 
 const title = (title) => title 
