@@ -4,49 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 
 class MegaSenaDataController extends Controller
 {
-
     public function __invoke(MegaSenaDataRequest $request)
     {
-        $ballsData = $this->getDataFromAllBalls();
-        $numbers = $this->mergeNumberOccurrences($ballsData);
-        $metadata = $this->getMetadata($numbers);
-        $formatted = $this->formatNumbers($numbers, $metadata, $request);
+        $ballsData = $this->getDataFromAllBalls($request);
+        $mergedNumbers = $this->mergeNumberOccurrences($ballsData);
+        $metadata = $this->getMetadata($mergedNumbers);
+        $numbers = $this->formatNumbers($mergedNumbers, $metadata, $request);
 
-        return Inertia::render('Home/TheHome', [
-            'numbers' => $formatted,
-            'metadata' => $metadata
-        ]);
+        return Inertia::render('Home/TheHome', compact('numbers', 'metadata'));
+    }
+
+    public function addRelativeOccurrences(Collection $numbers, $metadata)
+    {
+        return $numbers->map(fn ($number) => [
+            'number' => $number['number'],
+            'occurrences' => $number['occurrences'],
+            'relative_occurrences' => $this->getRelativeOccurrence($number['occurrences'], $metadata)
+        ], $numbers);
     }
 
     public function formatNumbers(array $numbers, array $metadata, MegaSenaDataRequest $request): Collection
     {
-        $formatted = collect();
+        $numbers = collect($numbers);
 
-        foreach ($numbers as $number => $occurrences) {
-            $formatted->push([
-                'number' => $number,
-                'occurrences' => $occurrences,
-                'relative_occurrence' => $this->getRelativeOccurrence($occurrences, $metadata)
-            ]);
-        }
+        $numbers = $this->addRelativeOccurrences($numbers, $metadata);
 
         if ($request->input('sort')) {
-            return $formatted->sortByDesc('occurrences')->values();
+            return $numbers->sortByDesc('occurrences')->values();
         }
 
-        return $formatted;
+        return $numbers;
     }
 
     public function getRelativeOccurrence($occurrences, $metadata)
     {
         $max = $metadata['max'];
         $min = $metadata['min'];
+
+        if ($max === 0 && $min === 0) {
+            return 0;
+        }
 
         return (($occurrences - $min) / ($max - $min)) * 100;
     }
@@ -56,46 +60,63 @@ class MegaSenaDataController extends Controller
         $numbers = collect($numbers);
 
         return [
-            'max' => $numbers->max(),
-            'min' => $numbers->min()
+            'max' => $numbers->pluck('occurrences')->max(),
+            'min' => $numbers->pluck('occurrences')->min()
         ];
+    }
+
+    public function getCountOfBallNumber($item, $number)
+    {
+        $game = $item->where('ball', $number)->first();
+
+        return $game ? $game['count'] : 0;
     }
 
     public function mergeNumberOccurrences($balls): array
     {
+        $INITIAL_TOTAL = 0;
         $data = [];
 
         for ($i = 1; $i <= 60; $i++) {
-            $data[$i] = $balls->reduce(function ($total, $item) use ($i) {
-                $item = $item->where('ball', $i);
+            $number = $i;
+            $occurrences = $balls->reduce(
+                fn ($total, $item) => $total + $this->getCountOfBallNumber($item, $i),
+                $INITIAL_TOTAL
+            );
 
-                $count = $item->first()
-                    ? $item->first()['count']
-                    : 0;
-
-                return $total + $count;
-            }, 0);
+            $data[] = compact('number', 'occurrences');
         }
 
         return $data;
     }
 
-    public function getDataFromAllBalls(): Collection
+    public function queryOccurrencesCount(int $ball, MegaSenaDataRequest $request)
+    {
+        $query = Game::selectRaw("bola_{$ball} as ball, COUNT(*) as count")
+            ->groupBy("bola_{$ball}")
+            ->orderByRaw("bola_{$ball} ASC");
+
+        if ($request->input('month')) {
+            $this->queryDate($query, $request->input('month'));
+        }
+
+        return $query;
+    }
+
+    public function queryDate($query, $date)
+    {
+        $date = Carbon::createFromFormat('Y-m', $date)->startOfMonth();
+        $query->whereDate('date', '>', $date);
+    }
+
+    public function getDataFromAllBalls(MegaSenaDataRequest $request): Collection
     {
         $data = [];
 
         for ($i = 1; $i <= 6; $i++) {
-            $data[] = collect($this->getDataFromBall($i)->toArray());
+            $data[] = $this->queryOccurrencesCount($i, $request)->get();
         }
 
         return collect($data);
-    }
-
-    public function getDataFromBall(int $number): Collection
-    {
-        return Game::selectRaw("bola_{$number} as ball, COUNT(*) as count")
-            ->groupBy("bola_{$number}")
-            ->orderByRaw("bola_{$number} ASC")
-            ->get();
     }
 }

@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const bgColor = computed(() => {
-  const relativeOccurrence = props.number.relative_occurrence > 70 ? 70 : props.number.relative_occurrence
+  const relativeOccurrence = props.number.relative_occurrences > 70 ? 70 : props.number.relative_occurrences
 
   const value = (100 - relativeOccurrence)
 
@@ -24,7 +24,7 @@ const bgColor = computed(() => {
   return `hsl(0, 55%, ${value}%)`
 })
 
-const bgIsDark = computed(() => props.heatmap && props.number.relative_occurrence > 35)
+const bgIsDark = computed(() => props.heatmap && props.number.relative_occurrences > 35)
 
 const textColor = computed(() => {
     if (bgIsDark.value) {
@@ -37,7 +37,7 @@ const textColor = computed(() => {
 
 <template>
   <div
-    class="px-4 py-2 text-center rounded border border-slate-500 transition-colors"
+    class="px-4 py-2 text-center rounded border border-slate-500 transition-colors w-16"
     :style="{backgroundColor: bgColor}"
   >
     <div
