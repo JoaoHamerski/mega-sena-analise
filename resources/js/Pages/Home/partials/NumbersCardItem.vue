@@ -2,14 +2,14 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-    heatmap: {
-        type: Boolean,
-        default: false
-    },
-    number: {
-        type: Object,
-        required: true
-    }
+  heatmap: {
+    type: Boolean,
+    default: false
+  },
+  number: {
+    type: Object,
+    required: true
+  }
 })
 
 const bgColor = computed(() => {
@@ -17,22 +17,13 @@ const bgColor = computed(() => {
 
   const value = (100 - relativeOccurrence)
 
-  if (!props.heatmap) {
-    return 'rgb(255, 255, 255)'
-  }
-
-  return `hsl(0, 55%, ${value}%)`
+  return !props.heatmap
+    ? 'rgb(255, 255, 255)' 
+    : `hsl(0, 55%, ${value}%)`
 })
 
 const bgIsDark = computed(() => props.heatmap && props.number.relative_occurrences > 35)
-
-const textColor = computed(() => {
-    if (bgIsDark.value) {
-        return 'rgb(255, 255, 255)'
-    }
-
-    return 'rgb(0, 0, 0)'
-})
+const textColor = computed(() => bgIsDark.value ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')
 </script>
 
 <template>

@@ -21,15 +21,6 @@ class MegaSenaDataController extends Controller
         return Inertia::render('Home/TheHome', compact('numbers', 'metadata'));
     }
 
-    public function addRelativeOccurrences(Collection $numbers, $metadata)
-    {
-        return $numbers->map(fn ($number) => [
-            'number' => $number['number'],
-            'occurrences' => $number['occurrences'],
-            'relative_occurrences' => $this->getRelativeOccurrence($number['occurrences'], $metadata)
-        ], $numbers);
-    }
-
     public function formatNumbers(array $numbers, array $metadata, MegaSenaDataRequest $request): Collection
     {
         $numbers = collect($numbers);
@@ -41,6 +32,15 @@ class MegaSenaDataController extends Controller
         }
 
         return $numbers;
+    }
+
+    public function addRelativeOccurrences(Collection $numbers, $metadata)
+    {
+        return $numbers->map(fn ($number) => [
+            'number' => $number['number'],
+            'occurrences' => $number['occurrences'],
+            'relative_occurrences' => $this->getRelativeOccurrence($number['occurrences'], $metadata)
+        ], $numbers);
     }
 
     public function getRelativeOccurrence($occurrences, $metadata)
