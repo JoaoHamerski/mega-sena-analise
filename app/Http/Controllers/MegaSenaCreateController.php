@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class MegaSenaUploadShowController extends Controller
+class MegaSenaCreateController extends Controller
 {
     public function __invoke()
     {

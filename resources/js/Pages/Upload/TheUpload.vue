@@ -23,7 +23,7 @@ const onSubmit = () => {
             id="file"
             name="file"
             type="file"
-            accept=".csv"
+            accept=".csv,.xlsx"
             class="file-input w-full file-input-primary"
             @input="form.file = $event.target.files[0]"
           >

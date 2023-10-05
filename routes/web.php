@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\MegaSenaDataController;
-use App\Http\Controllers\MegaSenaUploadShowController;
-use App\Http\Controllers\MegaSenaUploadStoreController;
+use App\Http\Controllers\MegaSenaHomeController;
+use App\Http\Controllers\MegaSenaCreateController;
+use App\Http\Controllers\MegaSenaStoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,7 +20,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', MegaSenaDataController::class)->name('home');
+Route::get('/', MegaSenaHomeController::class)->name('home');
 
-Route::get('/upload', MegaSenaUploadShowController::class)->name('upload.show');
-Route::post('/upload', MegaSenaUploadStoreController::class)->name('upload.store');
+Route::get('/upload', MegaSenaCreateController::class)->name('upload.show');
+Route::post('/upload', MegaSenaStoreController::class)->name('upload.store');

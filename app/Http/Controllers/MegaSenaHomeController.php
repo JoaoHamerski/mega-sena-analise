@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 
-class MegaSenaDataController extends Controller
+class MegaSenaHomeController extends Controller
 {
     public function __invoke(MegaSenaDataRequest $request)
     {
