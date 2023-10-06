@@ -1,16 +1,35 @@
 <script setup>
-import NumbersCard from './partials/NumbersCard.vue'
+import { ref } from 'vue';
+import NumbersCard from './numbers-card/NumbersCard.vue'
+import ResultsCard from './results-card/ResultsCard.vue'
 
 defineProps({
   numbers: {
     type: Array,
     required: true
+  },
+  results: {
+    type: Array,
+    required: true
   }
 })
+
+const heatmap = ref(false)
+
+const onHeatmapUpdate = (value) => {
+  heatmap.value = value
+}
 </script>
 
 <template>
-  <div>
-    <NumbersCard :numbers="numbers" />
+  <div class="mt-10 px-10 flex justify-around">
+    <NumbersCard
+      :numbers="numbers"
+      @update:heatmap="onHeatmapUpdate"
+    />
+    <ResultsCard
+      :results="results"
+      :heatmap="heatmap"
+    />
   </div>
 </template>

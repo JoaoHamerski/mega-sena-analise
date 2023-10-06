@@ -17,8 +17,50 @@ class MegaSenaHomeController extends Controller
         $mergedNumbers = $this->mergeNumberOccurrences($ballsData);
         $metadata = $this->getMetadata($mergedNumbers);
         $numbers = $this->formatNumbers($mergedNumbers, $metadata, $request);
+        $results = $this->getResults($numbers);
 
-        return Inertia::render('Home/TheHome', compact('numbers', 'metadata'));
+        return Inertia::render(
+            'Home/TheHome',
+            compact('numbers', 'metadata', 'results')
+        );
+    }
+
+    public function getResults($numbers)
+    {
+        $games = Game::whereDate('date', '>', '2020-01-01')->orderBy('date', 'desc')->get();
+
+        $games = $games->map(function ($game) use ($numbers) {
+            $game = $game->toArray();
+
+            return [
+                ...$game,
+                'bola_1' => [
+                    'number' => $game['bola_1'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_1'])
+                ],
+                'bola_2' => [
+                    'number' => $game['bola_2'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_2'])
+                ],
+                'bola_3' => [
+                    'number' => $game['bola_3'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_3'])
+                ],
+                'bola_4' => [
+                    'number' => $game['bola_4'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_4'])
+                ],
+                'bola_5' => [
+                    'number' => $game['bola_5'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_5'])
+                ],
+                'bola_6' => [
+                    'number' => $game['bola_6'], 'relative_occurrences' => $this->occurrencesCount($numbers, $game['bola_6'])
+                ],
+            ];
+        });
+
+        return $games;
+    }
+
+    public function occurrencesCount($numbers, $number)
+    {
+        return $numbers->where('number', $number)->first()['relative_occurrences'];
     }
 
     public function formatNumbers(array $numbers, array $metadata, MegaSenaDataRequest $request): Collection
