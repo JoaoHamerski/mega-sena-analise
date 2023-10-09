@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
 use App\Traits\MegaSenaHomeQuery;
-use Arr;
-use Carbon\Carbon;
-use Error;
+use Illuminate\Support\Arr;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Inertia\Inertia;
-use Schema;
-use Str;
 
 class MegaSenaHomeController extends Controller
 {
