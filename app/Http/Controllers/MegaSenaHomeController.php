@@ -17,8 +17,6 @@ class MegaSenaHomeController extends Controller
 {
     use MegaSenaHomeQuery;
 
-    protected $whereClauseBalls;
-
     public function __invoke(MegaSenaDataRequest $request)
     {
         $numbers = $this->getNumberOccurrences($request);
@@ -45,33 +43,17 @@ class MegaSenaHomeController extends Controller
 
     public function getMetadata(array $numbers)
     {
-        $numbers = collect($numbers);
+        $occurrences = collect($numbers)->pluck('occurrences');
 
         return [
-            'max' => $numbers->pluck('occurrences')->max(),
-            'min' => $numbers->pluck('occurrences')->min()
+            'max' => $occurrences->max(),
+            'min' => $occurrences->min()
         ];
-    }
-
-    public function buildWhereClauseForBalls()
-    {
-        $columns = array_filter(
-            Schema::getColumnListing('games'),
-            fn ($column) => Str::contains($column, 'bola')
-        );
-
-        $this->whereClauseBalls = implode(" = ? or ", $columns) . " = ?";
     }
 
     public function countOccurrencesOfNumber(int $number, $query)
     {
-        if (!$this->whereClauseBalls) {
-            throw new Error("Where clause isn't set.");
-        }
-
-        $whereClause = '(' . Str::replace('?', $number, $this->whereClauseBalls) . ')';
-
-        return $query->clone()->whereRaw($whereClause)->count();
+        return $query->clone()->whereNumber($number)->count();
     }
 
     public function queryGames(MegaSenaDataRequest $request, Builder $query = null)
@@ -110,8 +92,6 @@ class MegaSenaHomeController extends Controller
 
     public function getNumberOccurrences(MegaSenaDataRequest $request)
     {
-        $this->buildWhereClauseForBalls();
-
         $query = $this->queryGames($request);
 
         $numbers = Arr::map(range(1, 60), fn ($number) => [
@@ -120,7 +100,6 @@ class MegaSenaHomeController extends Controller
         ]);
 
         $numbersWithRelativeOccurrences = $this->appendRelativeOccurrences($numbers);
-
 
         return $this->getData($numbersWithRelativeOccurrences, $request);
     }
