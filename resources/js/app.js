@@ -1,4 +1,3 @@
-import './bootstrap';
 import '../css/app.scss';
 
 import { createApp } from 'vue';
@@ -21,7 +20,7 @@ const usePlugins = (app, inertiaPlugin) => {
         .use(autoAnimatePlugin)
 }
 
-const title = (title) => title 
+const title = (title) => title
     ? `${title} - Mega Sena Análise`
     : "Mega Sena Análise"
 

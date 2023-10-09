@@ -9,8 +9,8 @@ defineProps({
     required: true
   },
   results: {
-    type: Array,
-    required: true
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -27,9 +27,10 @@ const onHeatmapUpdate = (value) => {
       :numbers="numbers"
       @update:heatmap="onHeatmapUpdate"
     />
-    <ResultsCard
+
+    <!-- <ResultsCard
       :results="results"
       :heatmap="heatmap"
-    />
+    /> -->
   </div>
 </template>

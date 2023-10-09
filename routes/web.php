@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MegaSenaHomeController;
 use App\Http\Controllers\MegaSenaCreateController;
+use App\Http\Controllers\MegaSenaResultsController;
 use App\Http\Controllers\MegaSenaStoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -21,6 +22,5 @@ use Inertia\Inertia;
 */
 
 Route::get('/', MegaSenaHomeController::class)->name('home');
-
 Route::get('/upload', MegaSenaCreateController::class)->name('upload.show');
 Route::post('/upload', MegaSenaStoreController::class)->name('upload.store');

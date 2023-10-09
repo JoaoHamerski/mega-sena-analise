@@ -26,6 +26,7 @@
         "typescript": "^5.2.2",
         "vite": "^4.0.0",
         "vue": "^3.2.41",
-        "vue-datepicker-next": "^1.0.3"
+        "vue-datepicker-next": "^1.0.3",
+        "vue-virtual-scroller": "^2.0.0-beta.8"
     }
 }
