@@ -18,13 +18,13 @@ class MegaSenaHomeController extends Controller
     public function __invoke(MegaSenaDataRequest $request)
     {
         $numbers = $this->getNumberOccurrences($request);
-        $results = $this->getResults($request, $numbers);
+        $results = fn () => $this->getResultsWithRelativeOccurrences($request, $numbers);
 
         return Inertia::render(
             'Home/TheHome',
             [
                 'numbers' => $numbers,
-                'results' => $results
+                'results' =>  Inertia::lazy($results),
             ]
         );
     }

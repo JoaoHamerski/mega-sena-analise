@@ -2,8 +2,11 @@
 import { onMounted } from 'vue';
 import ResultsCardListItem from './ResultsCardListItem.vue'
 import { RecycleScroller } from 'vue-virtual-scroller'
+import { ref } from 'vue';
 
 const emit = defineEmits(['results:load-more'])
+
+const scroller = ref(null)
 
 defineProps({
   results: {
@@ -27,10 +30,12 @@ const loadMore = () => {
 onMounted(() => {
   loadMore()
 })
+defineExpose({ scroller })
 </script>
 
 <template>
   <RecycleScroller
+    ref="scroller"
     class="scroller overflow-auto custom-scroll -mr-3 pr-2"
     :items="results"
     :item-size="100"

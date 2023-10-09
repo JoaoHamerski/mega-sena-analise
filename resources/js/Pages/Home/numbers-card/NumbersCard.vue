@@ -20,7 +20,9 @@ const onHeatmapUpdate = (value) => {
 </script>
 
 <template>
-  <AppCard class="w-fit">
+  <AppCard
+    color="bg-green-600"
+  >
     <template #header>
       Resultados da MEGA SENA
     </template>

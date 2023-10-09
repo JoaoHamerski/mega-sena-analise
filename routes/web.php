@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\MegaSenaHomeController;
 use App\Http\Controllers\MegaSenaCreateController;
+use App\Http\Controllers\MegaSenaHomeStats;
+use App\Http\Controllers\MegaSenaHomeStatsController;
 use App\Http\Controllers\MegaSenaResultsController;
 use App\Http\Controllers\MegaSenaStoreController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +23,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', MegaSenaHomeController::class)->name('home');
+Route::name('home.')->group(function () {
+    Route::get('/', MegaSenaHomeController::class)->name('index');
+    Route::get('/stats', MegaSenaHomeStatsController::class)->name('stats');
+})->name('home');
+
 Route::get('/upload', MegaSenaCreateController::class)->name('upload.show');
 Route::post('/upload', MegaSenaStoreController::class)->name('upload.store');

@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 trait MegaSenaHomeResults
 {
-    public function getResults(MegaSenaDataRequest $request, Collection $numbers)
+    public function getResultsWithRelativeOccurrences(MegaSenaDataRequest $request, Collection $numbers)
     {
         $games = $this->queryGames($request)
             ->orderBy('date', 'desc')

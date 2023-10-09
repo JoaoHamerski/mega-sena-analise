@@ -15,9 +15,9 @@ const currentRoute = computed(() => {
     <div class="flex gap-3 h-full font-bold items-center">
       <div>
         <Link
-          :href="route('home')"
+          :href="route('home.index')"
           :class="{
-            'text-primary': currentRoute === 'home'
+            'text-primary': currentRoute === 'home.index'
           }"
         >
           INÍCIO

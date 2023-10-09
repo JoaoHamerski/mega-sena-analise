@@ -1,16 +1,14 @@
 <script setup>
 import { ref } from 'vue';
+
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
+import StatsCard from './stats-card/StatsCard.vue'
 
 defineProps({
   numbers: {
     type: Array,
     required: true
-  },
-  results: {
-    type: Object,
-    default: () => ({})
   }
 })
 
@@ -22,15 +20,16 @@ const onHeatmapUpdate = (value) => {
 </script>
 
 <template>
-  <div class="mt-10 px-10 flex justify-around">
-    <NumbersCard
-      :numbers="numbers"
-      @update:heatmap="onHeatmapUpdate"
-    />
-
-    <ResultsCard
-      :results="results"
-      :heatmap="heatmap"
-    />
+  <div class="py-10 px-10">
+    <div class="grid grid-cols-[3.4fr,1.6fr,2fr] gap-x-5 mb-5">
+      <NumbersCard
+        :numbers="numbers"
+        @update:heatmap="onHeatmapUpdate"
+      />
+      <ResultsCard
+        :heatmap="heatmap"
+      />
+      <StatsCard />
+    </div>
   </div>
 </template>
