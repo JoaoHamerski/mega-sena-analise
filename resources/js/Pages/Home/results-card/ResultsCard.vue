@@ -32,6 +32,8 @@ const loadMoreResults = async () => {
   })
 }
 
+const hasMoreData = computed(() => !!props.results.next_page_url)
+
 watch(currentQueryMonth, () => {
   items.value = []
   page.value = 1
@@ -52,6 +54,7 @@ watch(currentQueryMonth, () => {
     <template #body>
       <div class="max-h-[70vh]">
         <ResultsCardList
+          :has-more-data="hasMoreData"
           :results="items"
           :heatmap="heatmap"
           @results:load-more="loadMoreResults"

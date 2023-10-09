@@ -28,9 +28,9 @@ const onHeatmapUpdate = (value) => {
       @update:heatmap="onHeatmapUpdate"
     />
 
-    <!-- <ResultsCard
+    <ResultsCard
       :results="results"
       :heatmap="heatmap"
-    /> -->
+    />
   </div>
 </template>

@@ -18,7 +18,7 @@ class MegaSenaHomeController extends Controller
     public function __invoke(MegaSenaDataRequest $request)
     {
         $numbers = $this->getNumberOccurrences($request);
-        $results = $this->getResults($request);
+        $results = $this->getResults($request, $numbers);
 
         return Inertia::render(
             'Home/TheHome',

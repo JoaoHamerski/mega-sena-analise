@@ -13,6 +13,10 @@ defineProps({
   heatmap: {
     type: Boolean,
     default: false
+  },
+  hasMoreData: {
+    type: Boolean,
+    required: true
   }
 })
 
@@ -42,6 +46,15 @@ onMounted(() => {
         :result="result"
         :heatmap="heatmap"
       />
+    </template>
+
+    <template #after>
+      <div
+        v-if="!hasMoreData"
+        class="text-center text-gray-600 text-sm"
+      >
+        Fim dos resultados
+      </div>
     </template>
   </RecycleScroller>
 </template>
