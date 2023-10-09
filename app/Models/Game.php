@@ -27,6 +27,7 @@ class Game extends Model
             get: fn () => $columns
         );
     }
+
     public function scopeWhereNumber(EloquentBuilder $query, $number)
     {
         $whereClause = implode(" = ? or ", $this->ballColumns) . " = ?";
