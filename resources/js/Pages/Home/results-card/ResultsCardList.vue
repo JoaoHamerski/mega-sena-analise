@@ -30,6 +30,7 @@ const loadMore = () => {
 onMounted(() => {
   loadMore()
 })
+
 defineExpose({ scroller })
 </script>
 
@@ -38,11 +39,11 @@ defineExpose({ scroller })
     ref="scroller"
     class="scroller overflow-auto custom-scroll -mr-3 pr-2"
     :items="results"
-    :item-size="100"
+    :item-size="90"
     style="height: 70vh"
     list-tag="ul"
     item-tag="li"
-    item-class="mb-5"
+    item-class="border-b pb-3"
     :buffer="50"
     @scroll-end="loadMore"
   >

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import BallNumber from '../partials/BallNumber.vue';
+import { formatDateTime } from '@/helpers/format-datetime';
 
 const props = defineProps({
   loading: {
@@ -19,6 +20,7 @@ const props = defineProps({
 
 const isNumbersEmpty = computed(() => !props.numbers.length)
 
+const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime(item.game.date)}`
 </script>
 
 <template>
@@ -44,6 +46,8 @@ const isNumbersEmpty = computed(() => !props.numbers.length)
             :relative-occurrences="item.relative_occurrences"
             :heatmap="heatmap"
             small-style
+            class="tooltip tooltip-left"
+            :data-tip="dataTipFor(item)"
           >
             <template #default="{ number }">
               <span class="font-bold">{{ number }}</span>

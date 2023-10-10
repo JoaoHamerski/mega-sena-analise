@@ -14,7 +14,6 @@ class MegaSenaHomeStatsController extends Controller
 
     public function __invoke(MegaSenaDataRequest $request)
     {
-
         return [
             'unlucky_numbers' => $this->getNumbersByLongestLastOccurrence($request)
         ];
@@ -22,9 +21,9 @@ class MegaSenaHomeStatsController extends Controller
 
     public function getNumbersByItsLastOccurrence()
     {
-        $numbers = collect(Cache::get('home-controller:numbers'));
+        $numbers = collect(Cache::get('mega-sena:numbers'));
 
-        $numbers = $numbers->map(function ($number) {
+        return $numbers->map(function ($number) {
             $lastOccurrenceGame = Game::whereNumber($number['number'])->orderBy('date', 'DESC')->first();
 
             return [
@@ -32,8 +31,6 @@ class MegaSenaHomeStatsController extends Controller
                 ...['game' => $lastOccurrenceGame->toArray()]
             ];
         });
-
-        return $numbers;
     }
 
     public function filterByLongestOccurrences($games, $interval)

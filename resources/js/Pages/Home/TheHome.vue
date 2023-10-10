@@ -21,7 +21,7 @@ const onHeatmapUpdate = (value) => {
 
 <template>
   <div class="py-10 px-10">
-    <div class="grid grid-cols-[3.4fr,1.6fr,2fr] gap-x-5 mb-5">
+    <div class="grid grid-cols-[1.7fr,.9fr,1.1fr] gap-x-5 mb-5">
       <NumbersCard
         :numbers="numbers"
         @update:heatmap="onHeatmapUpdate"

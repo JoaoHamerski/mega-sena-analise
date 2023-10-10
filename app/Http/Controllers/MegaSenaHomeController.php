@@ -33,6 +33,6 @@ class MegaSenaHomeController extends Controller
 
     public function cacheNumbers($numbers)
     {
-        Cache::put('home-controller:numbers', $numbers);
+        Cache::put('mega-sena:numbers', $numbers);
     }
 }
