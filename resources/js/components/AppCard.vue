@@ -26,7 +26,7 @@ const headerClass = computed(() => {
     >
       <slot name="header" />
     </div>
-    <div class="p-5">
+    <div class="p-5 relative">
       <slot name="body" />
     </div>
   </div>

@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
+use App\Traits\MegaSenaHomeNumbersRelative;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class MegaSenaHomeStatsController extends Controller
 {
+    use MegaSenaHomeNumbersRelative;
+
     public function __invoke(MegaSenaDataRequest $request)
     {
+
         return [
             'unlucky_numbers' => $this->getNumbersByLongestLastOccurrence($request)
         ];
@@ -18,19 +22,18 @@ class MegaSenaHomeStatsController extends Controller
 
     public function getNumbersByItsLastOccurrence()
     {
+        $numbers = collect(Cache::get('home-controller:numbers'));
 
-        $games = collect();
+        $numbers = $numbers->map(function ($number) {
+            $lastOccurrenceGame = Game::whereNumber($number['number'])->orderBy('date', 'DESC')->first();
 
-        for ($i = 1; $i <= 60; $i++) {
-            $lastOccurrenceGame = Game::whereNumber($i)->orderBy('date', 'DESC')->first();
+            return [
+                ...$number,
+                ...['game' => $lastOccurrenceGame->toArray()]
+            ];
+        });
 
-            $games->push([
-                'number' => $i,
-                'game' => $lastOccurrenceGame->toArray(),
-            ]);
-        }
-
-        return $games;
+        return $numbers;
     }
 
     public function filterByLongestOccurrences($games, $interval)
@@ -44,14 +47,15 @@ class MegaSenaHomeStatsController extends Controller
         });
     }
 
-    public function getNumbersByLongestLastOccurrence($request)
+    public function getNumbersByLongestLastOccurrence()
     {
         $INTERVAL_OF_DAYS = 30;
 
         $games = $this->getNumbersByItsLastOccurrence();
 
-        return $this->filterByLongestOccurrences($games, $INTERVAL_OF_DAYS)
-            ->sortBy('games.date')
+        $games = $this->filterByLongestOccurrences($games, $INTERVAL_OF_DAYS);
+
+        return $games->sortBy('games.date')
             ->values();
     }
 }

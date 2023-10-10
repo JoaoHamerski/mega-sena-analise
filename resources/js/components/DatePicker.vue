@@ -2,7 +2,13 @@
 import DatePicker from 'vue-datepicker-next'
 import 'vue-datepicker-next/locale/pt-br'
 
+const emit = defineEmits(['update:model-value'])
+
 defineProps({
+  name: {
+    type: String,
+    required: true
+  },
   modelValue: {
     type: String,
     default: ''
@@ -13,12 +19,9 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:model-value'])
-
 const onChange = (value) => {
   emit('update:model-value', value)
 }
-
 </script>
 
 <template>
@@ -26,6 +29,7 @@ const onChange = (value) => {
     <label
       v-if="label"
       class="label"
+      :for="name"
     >
       <span class="label-text font-bold">
         {{ label }}
@@ -42,8 +46,9 @@ const onChange = (value) => {
     >
       <template #input="{value}">
         <input
+          :id="name"
           type="text"
-          name="date"
+          :name="name"
           autocomplete="off"
           class="input input-bordered w-full"
           :value="value"

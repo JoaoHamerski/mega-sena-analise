@@ -3,20 +3,12 @@
 namespace App\Traits;
 
 use App\Http\Requests\MegaSenaDataRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Arr;
 
 trait MegaSenaHomeNumbers
 {
-    public function getNumbersData($numbers, MegaSenaDataRequest $request)
-    {
-        $numbers = collect($numbers);
-
-        if ($request->boolean('sort')) {
-            $numbers = $numbers->sortByDesc('occurrences');
-        }
-
-        return $numbers->values();
-    }
+    use MegaSenaHomeNumbersRelative;
 
     public function getNumberOccurrences(MegaSenaDataRequest $request)
     {
@@ -29,31 +21,18 @@ trait MegaSenaHomeNumbers
 
         $numbersWithRelativeOccurrences = $this->appendRelativeOccurrences($numbers);
 
-        return $this->getNumbersData($numbersWithRelativeOccurrences, $request);
+        return $this->applyFilters($numbersWithRelativeOccurrences, $request);
     }
 
-    public function appendRelativeOccurrences($numbers)
+    public function applyFilters($numbers, MegaSenaDataRequest $request)
     {
-        $metadata = $this->getMetadata($numbers);
+        $numbers = collect($numbers);
 
-        return Arr::map($numbers, fn ($item) => [
-            ...$item,
-            ...[
-                'relative_occurrences' => $this->getRelativeOccurrence($item['occurrences'], $metadata)
-            ]
-        ]);
-    }
-
-    public function getRelativeOccurrence($occurrences, $metadata)
-    {
-        $max = $metadata['max'];
-        $min = $metadata['min'];
-
-        if ($max === 0 && $min === 0) {
-            return 0;
+        if ($request->boolean('sort')) {
+            $numbers = $numbers->sortByDesc('occurrences');
         }
 
-        return (($occurrences - $min) / ($max - $min)) * 100;
+        return $numbers->values();
     }
 
     public function countOccurrencesOfNumber(int $number, $query)

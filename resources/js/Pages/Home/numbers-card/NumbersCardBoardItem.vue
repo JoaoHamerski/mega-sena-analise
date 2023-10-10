@@ -16,7 +16,6 @@ defineProps({
 
 <template>
   <BallNumber
-    class="px-4 py-2 text-center rounded border border-slate-500 transition-colors w-16"
     :number="number.number"
     :relative-occurrences="number.relative_occurrences"
     :heatmap="heatmap"

@@ -1,7 +1,6 @@
 root = true
 
 [*]
-indent_size = 4
 charset = utf-8
 end_of_line = lf
 indent_style = space
@@ -10,6 +9,9 @@ trim_trailing_whitespace = true
 
 [*.{js,vue,jsx,yml,yaml}]
 indent_size = 2
+
+[*.php]
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false

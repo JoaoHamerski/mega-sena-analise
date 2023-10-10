@@ -26,7 +26,7 @@ defineProps({
       :number="result[`bola_${i}`].number"
       :relative-occurrences="result[`bola_${i}`].relative_occurrences"
       :heatmap="heatmap"
-      class="rounded-full border border-black p-2 w-10 h-10"
+      small-style
     >
       <template #default="{ number }">
         <b>{{ number }}</b>

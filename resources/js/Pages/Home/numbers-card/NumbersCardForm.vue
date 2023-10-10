@@ -44,6 +44,7 @@ watch(form, () => {
       <div>
         <DatePicker
           v-model="form.month"
+          name="month"
           label="RESULTADOS À PARTIR DE:"
         />
       </div>

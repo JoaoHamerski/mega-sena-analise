@@ -29,7 +29,7 @@ const onHeatmapUpdate = (value) => {
       <ResultsCard
         :heatmap="heatmap"
       />
-      <StatsCard />
+      <StatsCard :heatmap="heatmap" />
     </div>
   </div>
 </template>

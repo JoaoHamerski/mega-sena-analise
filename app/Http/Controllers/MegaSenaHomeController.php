@@ -6,7 +6,7 @@ use App\Http\Requests\MegaSenaDataRequest;
 use App\Traits\MegaSenaHomeNumbers;
 use App\Traits\MegaSenaHomeQuery;
 use App\Traits\MegaSenaHomeResults;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class MegaSenaHomeController extends Controller
@@ -20,6 +20,8 @@ class MegaSenaHomeController extends Controller
         $numbers = $this->getNumberOccurrences($request);
         $results = fn () => $this->getResultsWithRelativeOccurrences($request, $numbers);
 
+        $this->cacheNumbers($numbers);
+
         return Inertia::render(
             'Home/TheHome',
             [
@@ -29,15 +31,8 @@ class MegaSenaHomeController extends Controller
         );
     }
 
-    public function getMetadata(array|Collection $numbers)
+    public function cacheNumbers($numbers)
     {
-        $occurrences = $numbers instanceof Collection
-            ? $numbers->pluck('occurrences')
-            : collect($numbers)->pluck('occurrences');
-
-        return [
-            'max' => $occurrences->max(),
-            'min' => $occurrences->min()
-        ];
+        Cache::put('home-controller:numbers', $numbers);
     }
 }
