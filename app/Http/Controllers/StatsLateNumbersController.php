@@ -13,6 +13,9 @@ class StatsLateNumbersController extends Controller
 {
     use MegaSenaNumbersRelativeTrait;
 
+    /**
+     * Handle the incoming request.
+     */
     public function __invoke(Request $request)
     {
         $data = Validator::make($request->all(), [

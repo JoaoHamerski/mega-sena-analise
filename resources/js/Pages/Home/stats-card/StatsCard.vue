@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import StatsCardLateNumbers from './StatsCardLateNumbers.vue';
+import StatsCardOddEvenOccurrences from './StatsCardOddEvenOccurrences.vue';
 
 defineProps({
   heatmap: {
@@ -26,10 +27,17 @@ const loading = ref(false)
 
     <template #body>
       <AppLoading :value="loading" />
-      <StatsCardLateNumbers
-        v-model:loading="loading"
-        :heatmap="heatmap"
-      />
+
+      <div class="pb-5">
+        <StatsCardLateNumbers
+          v-model:loading="loading"
+          :heatmap="heatmap"
+        />
+      </div>
+
+      <div>
+        <StatsCardOddEvenOccurrences v-model:loading="loading" />
+      </div>
     </template>
   </AppCard>
 </template>
