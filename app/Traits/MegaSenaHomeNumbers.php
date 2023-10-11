@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Http\Requests\MegaSenaDataRequest;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Arr;
 
 trait MegaSenaHomeNumbers

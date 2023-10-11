@@ -17,11 +17,27 @@ const props = defineProps({
   smallStyle: {
     type: Boolean,
     default: false
+  },
+  customStyle: {
+    type: String,
+    default: ''
   }
 })
 
-const smallStyleClass = 'rounded-full border border-black p-2 w-10 h-10'
-const defaultStyleClass = 'px-4 py-2 text-center rounded border border-slate-500 transition-colors w-16'
+const SMALL_STYLE_CLASS = 'rounded-full border border-black p-2 w-10 h-10'
+const DEFAULT_STYLE_CLASS = 'rounded border border-slate-500 px-4 py-2 w-16'
+
+const classNames = computed(() => {
+  const classes = []
+
+  if (props.customStyle) {
+    classes.push(props.customStyle)
+  } else {
+    classes.push(props.smallStyle ? SMALL_STYLE_CLASS : DEFAULT_STYLE_CLASS)
+  }
+
+  return classes
+})
 
 const heatmapBg = computed(() => {
   const MAX_DARKNESS = 80
@@ -48,7 +64,7 @@ const bgColor = computed(() => !props.heatmap
 <template>
   <span
     class="transition-colors text-center"
-    :class="smallStyle ? smallStyleClass : defaultStyleClass"
+    :class="classNames"
     :style="{
       backgroundColor: bgColor,
       color: textColor

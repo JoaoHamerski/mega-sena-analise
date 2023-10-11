@@ -2,33 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MegaSenaDataRequest;
 use App\Models\Game;
 use App\Traits\MegaSenaHomeNumbersRelative;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
-class MegaSenaHomeStatsController extends Controller
+class MegaSenaStatsLateNumbersController extends Controller
 {
     use MegaSenaHomeNumbersRelative;
 
-    public function __invoke(MegaSenaDataRequest $request)
+    public function __invoke(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'interval' => ['required', 'integer']
+        ])->validate();
+
         return [
-            'unlucky_numbers' => $this->getNumbersByLongestLastOccurrence($request)
+            'interval' => $data['interval'],
+            'late_numbers' => $this->getNumbersByLongestLastOccurrence($data['interval'])
         ];
     }
 
     public function getNumbersByItsLastOccurrence()
     {
         $numbers = collect(Cache::get('mega-sena:numbers'));
+        $lastConcursoNumber = Game::latest()->first()->concurso;
 
-        return $numbers->map(function ($number) {
+        return $numbers->map(function ($number) use ($lastConcursoNumber) {
             $lastOccurrenceGame = Game::whereNumber($number['number'])->orderBy('date', 'DESC')->first();
 
             return [
                 ...$number,
-                ...['game' => $lastOccurrenceGame->toArray()]
+                ...[
+                    'game' => $lastOccurrenceGame->toArray(),
+                    'last_occurrence_in' => $lastConcursoNumber - $lastOccurrenceGame['concurso']
+                ]
             ];
         });
     }
@@ -44,13 +54,11 @@ class MegaSenaHomeStatsController extends Controller
         });
     }
 
-    public function getNumbersByLongestLastOccurrence()
+    public function getNumbersByLongestLastOccurrence($intervalOfDays)
     {
-        $INTERVAL_OF_DAYS = 30;
-
         $games = $this->getNumbersByItsLastOccurrence();
 
-        $games = $this->filterByLongestOccurrences($games, $INTERVAL_OF_DAYS);
+        $games = $this->filterByLongestOccurrences($games, $intervalOfDays);
 
         return $games->sortBy('number')
             ->values();

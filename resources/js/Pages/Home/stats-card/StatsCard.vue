@@ -1,7 +1,6 @@
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue';
-import StatsCardUnluckyNumbers from './StatsCardUnluckyNumbers.vue';
-import { usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import StatsCardLateNumbers from './StatsCardLateNumbers.vue';
 
 defineProps({
   heatmap: {
@@ -10,29 +9,7 @@ defineProps({
   }
 })
 
-const data = ref({})
-const isLoading = ref(false)
-
-const unluckyNumbers = computed(() => data.value.unlucky_numbers)
-const queryMonth = computed(() => usePage().props.query.month)
-
-const fetchData = async () => {
-  isLoading.value = true
-
-  const response = await fetch(route('home.stats'))
-
-  data.value = await response.json()
-
-  isLoading.value = false
-}
-
-onMounted(() => {
-  fetchData()
-})
-
-watch(queryMonth, () => {
-  fetchData()
-})
+const loading = ref(false)
 </script>
 
 <template>
@@ -44,11 +21,10 @@ watch(queryMonth, () => {
     </template>
 
     <template #body>
-      <AppLoading :value="isLoading" />
-      <StatsCardUnluckyNumbers
-        :loading="isLoading"
+      <AppLoading :value="loading" />
+      <StatsCardLateNumbers
+        v-model:loading="loading"
         :heatmap="heatmap"
-        :numbers="unluckyNumbers"
       />
     </template>
   </AppCard>

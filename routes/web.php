@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\MegaSenaHomeController;
-use App\Http\Controllers\MegaSenaHomeStatsController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MegaSenaStatsLateNumbersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('home.')->group(function () {
     Route::get('/', MegaSenaHomeController::class)->name('index');
-    Route::get('/stats', MegaSenaHomeStatsController::class)->name('stats');
 })->name('home');
+
+Route::get('/stats/late-numbers', MegaSenaStatsLateNumbersController::class)->name('stats.late-numbers');
