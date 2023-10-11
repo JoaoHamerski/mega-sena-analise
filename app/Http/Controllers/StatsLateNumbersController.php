@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
-use App\Traits\MegaSenaHomeNumbersRelative;
+use App\Traits\MegaSenaNumbersRelativeTrait;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class MegaSenaStatsLateNumbersController extends Controller
+class StatsLateNumbersController extends Controller
 {
-    use MegaSenaHomeNumbersRelative;
+    use MegaSenaNumbersRelativeTrait;
 
     public function __invoke(Request $request)
     {

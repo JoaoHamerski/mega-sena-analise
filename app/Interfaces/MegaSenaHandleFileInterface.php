@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 use Illuminate\Support\Collection;
 
-interface MegaSenaDataInterface
+interface MegaSenaHandleFileInterface
 {
     public function storeFile($content): string;
     public function getDataFromFile(string $path): Collection;

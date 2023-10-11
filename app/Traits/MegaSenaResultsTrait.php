@@ -2,13 +2,13 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\MegaSenaDataRequest;
+use App\Http\Requests\MegaSenaRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
-trait MegaSenaHomeResults
+trait MegaSenaResultsTrait
 {
-    public function getResultsWithRelativeOccurrences(MegaSenaDataRequest $request, Collection $numbers)
+    public function getResultsWithRelativeOccurrences(MegaSenaRequest $request, Collection $numbers)
     {
         $games = $this->queryGames($request)
             ->orderBy('date', 'desc')

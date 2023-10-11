@@ -1,9 +1,9 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { sortBy } from 'lodash-es';
+
 import NumbersCardBoard from './NumbersCardBoard.vue';
 import NumbersCardForm from './NumbersCardForm.vue'
-import { ref } from 'vue';
-import { sortBy } from 'lodash-es';
 
 const emit = defineEmits(['update:heatmap'])
 

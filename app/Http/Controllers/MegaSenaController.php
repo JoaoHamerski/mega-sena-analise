@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MegaSenaDataRequest;
-use App\Traits\MegaSenaHomeNumbers;
-use App\Traits\MegaSenaHomeQuery;
-use App\Traits\MegaSenaHomeResults;
+use App\Http\Requests\MegaSenaRequest;
+use App\Traits\MegaSenaNumbersTrait;
+use App\Traits\MegaSenaQueryTrait;
+use App\Traits\MegaSenaResultsTrait;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
-class MegaSenaHomeController extends Controller
+class MegaSenaController extends Controller
 {
-    use MegaSenaHomeQuery,
-        MegaSenaHomeNumbers,
-        MegaSenaHomeResults;
+    use MegaSenaQueryTrait,
+        MegaSenaNumbersTrait,
+        MegaSenaResultsTrait;
 
-    public function __invoke(MegaSenaDataRequest $request)
+    public function __invoke(MegaSenaRequest $request)
     {
         $numbers = $this->getNumberOccurrences($request);
         $results = fn () => $this->getResultsWithRelativeOccurrences($request, $numbers);

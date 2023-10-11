@@ -3,14 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Helpers\MegaSenaHelper;
-use App\Interfaces\MegaSenaDataFetchInterface;
-use App\Interfaces\MegaSenaDataInterface;
-use App\MegaSenaData;
+use App\Interfaces\MegaSenaFileFetchInterface;
+use App\Interfaces\MegaSenaHandleFileInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateMegaSenaGames extends Command implements MegaSenaDataInterface, MegaSenaDataFetchInterface
+class UpdateMegaSenaGames extends Command implements MegaSenaHandleFileInterface, MegaSenaFileFetchInterface
 {
     /**
      * The name and signature of the console command.

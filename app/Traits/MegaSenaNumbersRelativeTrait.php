@@ -5,7 +5,7 @@ namespace App\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
-trait MegaSenaHomeNumbersRelative
+trait MegaSenaNumbersRelativeTrait
 {
     public function getMetadata(array|Collection $numbers)
     {

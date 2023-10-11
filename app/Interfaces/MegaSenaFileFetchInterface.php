@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface MegaSenaDataFetchInterface
+interface MegaSenaFileFetchInterface
 {
     public function fetchResultsFile(): mixed;
 }

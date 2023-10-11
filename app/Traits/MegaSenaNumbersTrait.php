@@ -2,14 +2,14 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\MegaSenaDataRequest;
+use App\Http\Requests\MegaSenaRequest;
 use Illuminate\Support\Arr;
 
-trait MegaSenaHomeNumbers
+trait MegaSenaNumbersTrait
 {
-    use MegaSenaHomeNumbersRelative;
+    use MegaSenaNumbersRelativeTrait;
 
-    public function getNumberOccurrences(MegaSenaDataRequest $request)
+    public function getNumberOccurrences(MegaSenaRequest $request)
     {
         $query = $this->queryGames($request);
 
