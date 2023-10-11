@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
     state: () => ({
-        route: route(),
+      route: route(),
     }),
     actions: {
-        setCurrentRoute () {
-            this.route = route()
-        }
+      setCurrentRoute () {
+        this.route = route()
+      }
     }
 })

@@ -1,27 +1,42 @@
 <script setup>
 import { router } from '@inertiajs/vue3';
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 import DatePicker from '@/components/DatePicker.vue'
+import { replaceState } from '@/helpers/replace-state'
 
-const emit = defineEmits(['update:heatmap'])
-const form = reactive({
-  month: route().params.month ?? '',
-  sort: route().params.sort === 'true' ? true : false
+const emit = defineEmits(['update:heatmap', 'update:sort'])
+
+defineProps({
+  heatmap: {
+    type: Boolean,
+    required: true
+  },
+  sort: {
+    type: Boolean,
+    required: true
+  }
 })
 
-const onHeatmapInput = (value) => {
-  emit('update:heatmap', value)
+const form = reactive({
+  month: route().params.month ?? '',
+})
+
+const onUpdateProp = (prop, value) => {
+  replaceState({[prop]: value})
+
+  emit(`update:${prop}`, value)
+}
+
+const onMonthChange = (value) => {
+  form.month = value
+  submit()
 }
 
 const submit = () => {
-  router.get('/', form, {
+  router.get('/', {...route().params, ...form}, {
     preserveState: true
   })
 }
-
-watch(form, () => {
-  submit()
-})
 </script>
 
 <template>
@@ -30,22 +45,25 @@ watch(form, () => {
       <div class="self-center mr-2">
         <div class="mb-2">
           <AppCheckbox
-            v-model="form.sort"
+            :model-value="sort"
             label="Ordenar por ocorrências"
+            @update:model-value="onUpdateProp('sort', $event)"
           />
         </div>
         <div>
           <AppCheckbox
+            :model-value="heatmap"
             label="Mapa de calor"
-            @update:model-value="onHeatmapInput"
+            @update:model-value="onUpdateProp('heatmap', $event)"
           />
         </div>
       </div>
       <div>
         <DatePicker
-          v-model="form.month"
+          :model-value="form.month"
           name="month"
           label="RESULTADOS À PARTIR DE:"
+          @update:model-value="onMonthChange"
         />
       </div>
     </div>

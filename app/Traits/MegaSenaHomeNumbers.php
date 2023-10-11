@@ -23,13 +23,9 @@ trait MegaSenaHomeNumbers
         return $this->applyFilters($numbersWithRelativeOccurrences, $request);
     }
 
-    public function applyFilters($numbers, MegaSenaDataRequest $request)
+    public function applyFilters($numbers)
     {
         $numbers = collect($numbers);
-
-        if ($request->boolean('sort')) {
-            $numbers = $numbers->sortByDesc('occurrences');
-        }
 
         return $numbers->values();
     }

@@ -12,19 +12,15 @@ defineProps({
   }
 })
 
-const heatmap = ref(false)
-
-const onHeatmapUpdate = (value) => {
-  heatmap.value = value
-}
+const heatmap = ref(route().params.heatmap === 'true')
 </script>
 
 <template>
   <div class="py-10 px-10">
     <div class="grid grid-cols-[1.7fr,.9fr,1.1fr] gap-x-5 mb-5">
       <NumbersCard
+        v-model:heatmap="heatmap"
         :numbers="numbers"
-        @update:heatmap="onHeatmapUpdate"
       />
       <ResultsCard
         :heatmap="heatmap"

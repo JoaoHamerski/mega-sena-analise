@@ -1,22 +1,35 @@
 <script setup>
+import { computed } from 'vue';
 import NumbersCardBoard from './NumbersCardBoard.vue';
 import NumbersCardForm from './NumbersCardForm.vue'
 import { ref } from 'vue';
+import { sortBy } from 'lodash-es';
 
 const emit = defineEmits(['update:heatmap'])
-defineProps({
+
+const props = defineProps({
   numbers: {
     type: Array,
     required: true,
   },
+  heatmap: {
+    type: Boolean,
+    required: true
+  }
 });
 
-const heatmap = ref(false)
+const sort = ref(route().params.sort === 'true')
+
+const computedNumbers = computed(
+  () => sort.value
+    ? sortBy(props.numbers, 'occurrences').reverse()
+    : props.numbers
+)
 
 const onHeatmapUpdate = (value) => {
-  heatmap.value = value
   emit('update:heatmap', value)
 }
+
 </script>
 
 <template>
@@ -27,9 +40,13 @@ const onHeatmapUpdate = (value) => {
       Resultados da MEGA SENA
     </template>
     <template #body>
-      <NumbersCardForm @update:heatmap="onHeatmapUpdate" />
+      <NumbersCardForm
+        v-model:sort="sort"
+        :heatmap="heatmap"
+        @update:heatmap="onHeatmapUpdate"
+      />
       <NumbersCardBoard
-        :numbers="numbers"
+        :numbers="computedNumbers"
         :heatmap="heatmap"
       />
     </template>

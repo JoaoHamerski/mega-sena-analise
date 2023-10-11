@@ -14,13 +14,6 @@ class MegaSenaDataRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'sort' => filter_var($this->get('sort'), FILTER_VALIDATE_BOOLEAN)
-        ]);
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,7 +22,6 @@ class MegaSenaDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort' => ['nullable', 'boolean'],
             'month' => ['nullable', 'date_format:Y-m']
         ];
     }
