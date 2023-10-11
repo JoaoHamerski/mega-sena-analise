@@ -24,7 +24,7 @@ const smallStyleClass = 'rounded-full border border-black p-2 w-10 h-10'
 const defaultStyleClass = 'px-4 py-2 text-center rounded border border-slate-500 transition-colors w-16'
 
 const heatmapBg = computed(() => {
-  const MAX_DARKNESS = 70
+  const MAX_DARKNESS = 80
   const relativeOccurrences = props.relativeOccurrences
   const relativeForHeatmap = relativeOccurrences > MAX_DARKNESS
     ? MAX_DARKNESS

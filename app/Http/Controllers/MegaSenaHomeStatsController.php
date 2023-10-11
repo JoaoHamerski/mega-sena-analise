@@ -52,7 +52,7 @@ class MegaSenaHomeStatsController extends Controller
 
         $games = $this->filterByLongestOccurrences($games, $INTERVAL_OF_DAYS);
 
-        return $games->sortBy('games.date')
+        return $games->sortBy('number')
             ->values();
     }
 }

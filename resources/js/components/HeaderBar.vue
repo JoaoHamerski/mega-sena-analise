@@ -23,16 +23,6 @@ const currentRoute = computed(() => {
           INÍCIO
         </Link>
       </div>
-      <div>
-        <Link
-          :href="route('upload.show')"
-          :class="{
-            'text-primary': currentRoute === 'upload.show'
-          }"
-        >
-          UPLOAD
-        </Link>
-      </div>
     </div>
   </div>
 </template>
