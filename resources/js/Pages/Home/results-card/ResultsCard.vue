@@ -56,6 +56,10 @@ onMounted(() => {
     color="bg-blue-600 "
   >
     <template #header>
+      <FWIcon
+        icon="fas fa-list"
+        fixed-width
+      />
       Lista de concursos
     </template>
     <template #body>

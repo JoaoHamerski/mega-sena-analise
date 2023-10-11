@@ -17,6 +17,10 @@ const loading = ref(false)
     color="bg-gray-600"
   >
     <template #header>
+      <FWIcon
+        icon="fas fa-chart-simple"
+        fixed-width
+      />
       Estatísticas
     </template>
 

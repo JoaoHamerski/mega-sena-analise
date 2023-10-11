@@ -7,13 +7,14 @@ import { createPinia } from 'pinia';
 import { registerGlobalComponents } from './components';
 import { useZiggyPlugin } from '@/plugins/ziggy'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { useFontawesomePlugin } from './plugins/fontawesome';
 
 const pinia =  createPinia()
 
 const usePlugins = (app, inertiaPlugin) => {
     registerGlobalComponents(app)
-
     useZiggyPlugin(app)
+    useFontawesomePlugin(app)
 
     app.use(inertiaPlugin)
         .use(pinia)

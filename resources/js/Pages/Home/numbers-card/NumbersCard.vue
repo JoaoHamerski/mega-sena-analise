@@ -37,6 +37,10 @@ const onHeatmapUpdate = (value) => {
     color="bg-green-600"
   >
     <template #header>
+      <FWIcon
+        icon="fas fa-circle"
+        fixed-width
+      />
       Resultados da MEGA SENA
     </template>
     <template #body>
