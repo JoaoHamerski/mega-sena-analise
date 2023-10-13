@@ -1,7 +1,6 @@
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
-
 import ResultsCardList from './ResultsCardList.vue'
 
 const resultsCardList = ref(null)
@@ -11,22 +10,28 @@ const hasMoreData = ref(true)
 
 const currentQueryMonth = computed(() => usePage().props.query.month)
 
+const onFetchDataSuccess = ({ props }) => {
+  if (!props.results.next_page_url) {
+    hasMoreData.value = false
+  }
+
+  if (props.results.current_page === 1) {
+    resetResults()
+  }
+
+  items.value = [...items.value, ...props.results.data]
+}
+
+const resetResults = () => {
+  items.value = []
+  resultsCardList.value.scroller.scrollToItem(0)
+}
+
 const fetchData = () => {
   router.reload({
     only: ['results'],
     data: { page: page.value++ },
-    onSuccess: ({ props }) => {
-      if (!props.results.next_page_url) {
-        hasMoreData.value = false
-      }
-
-      if (props.results.current_page === 1) {
-        items.value = []
-        resultsCardList.value.scroller.scrollToItem(0)
-      }
-
-      items.value = [...items.value, ...props.results.data]
-    }
+    onSuccess: onFetchDataSuccess
   })
 }
 
@@ -36,9 +41,7 @@ watch(currentQueryMonth, () => {
   fetchData()
 })
 
-onMounted(() => {
-  fetchData()
-})
+onMounted(() => { fetchData() })
 </script>
 
 <template>

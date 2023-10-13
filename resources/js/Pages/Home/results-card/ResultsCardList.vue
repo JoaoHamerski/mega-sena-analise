@@ -1,8 +1,7 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import ResultsCardListItem from './ResultsCardListItem.vue'
 import { RecycleScroller } from 'vue-virtual-scroller'
-import { ref } from 'vue';
 
 const emit = defineEmits(['results:load-more'])
 

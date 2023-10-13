@@ -8,7 +8,8 @@ module.exports = {
     ],
     ignorePatterns: ['**/vendor/**/*.js'],
     rules: {
-      'no-unused-vars': ['warn']
+      'no-unused-vars': ['warn'],
+      'no-duplicate-imports': ['warn']
     },
     globals: {
       "route": "readonly"
