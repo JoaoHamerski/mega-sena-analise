@@ -9,13 +9,6 @@ import StatsCardLateNumbersForm from './StatsCardLateNumbersForm.vue';
 
 const emit = defineEmits(['update:loading'])
 
-defineProps({
-  heatmap: {
-    type: Boolean,
-    default: false
-  }
-})
-
 const form = ref({interval: '60', sort: false})
 const data = ref({late_numbers: [], interval: ''})
 const originalData = ref({late_numbers: [], interval: ''})
@@ -72,7 +65,6 @@ watch(queryMonth, () => { fetchData() })
 
         <StatsCardLateNumbersList
           :numbers="data.late_numbers"
-          :heatmap="heatmap"
         />
 
         <div class="text-gray-600 text-xs mt-4">

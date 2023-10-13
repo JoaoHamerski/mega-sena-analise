@@ -5,16 +5,10 @@ import { sortBy } from 'lodash-es';
 import NumbersCardBoard from './NumbersCardBoard.vue';
 import NumbersCardForm from './NumbersCardForm.vue'
 
-const emit = defineEmits(['update:heatmap'])
-
 const props = defineProps({
   numbers: {
     type: Array,
     required: true,
-  },
-  heatmap: {
-    type: Boolean,
-    required: true
   }
 });
 
@@ -25,11 +19,6 @@ const computedNumbers = computed(
     ? sortBy(props.numbers, 'occurrences').reverse()
     : props.numbers
 )
-
-const onHeatmapUpdate = (value) => {
-  emit('update:heatmap', value)
-}
-
 </script>
 
 <template>
@@ -46,12 +35,9 @@ const onHeatmapUpdate = (value) => {
     <template #body>
       <NumbersCardForm
         v-model:sort="sort"
-        :heatmap="heatmap"
-        @update:heatmap="onHeatmapUpdate"
       />
       <NumbersCardBoard
         :numbers="computedNumbers"
-        :heatmap="heatmap"
       />
     </template>
   </AppCard>

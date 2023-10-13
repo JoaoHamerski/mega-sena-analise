@@ -1,18 +1,8 @@
 <script setup>
-import { watch } from 'vue';
-import ResultsCardList from './ResultsCardList.vue'
-import { ref } from 'vue';
-import { computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
-import { watchEffect } from 'vue';
 
-defineProps({
-  heatmap: {
-    type: Boolean,
-    default: false
-  }
-})
+import ResultsCardList from './ResultsCardList.vue'
 
 const resultsCardList = ref(null)
 const page = ref(0)
@@ -68,7 +58,6 @@ onMounted(() => {
           ref="resultsCardList"
           :has-more-data="hasMoreData"
           :results="items"
-          :heatmap="heatmap"
           @results:load-more="fetchData"
         />
       </div>

@@ -1,21 +1,19 @@
 <script setup>
 import { router } from '@inertiajs/vue3';
-import { reactive } from 'vue';
+import { inject, reactive } from 'vue';
 import DatePicker from '@/components/DatePicker.vue'
 import { replaceState } from '@/helpers/replace-state'
 
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
 defineProps({
-  heatmap: {
-    type: Boolean,
-    required: true
-  },
   sort: {
     type: Boolean,
     required: true
   }
 })
+
+const { heatmap } = inject('heatmap')
 
 const form = reactive({
   month: route().params.month ?? '',
@@ -52,9 +50,8 @@ const submit = () => {
         </div>
         <div>
           <AppCheckbox
-            :model-value="heatmap"
+            v-model="heatmap"
             label="Mapa de calor"
-            @update:model-value="onUpdateProp('heatmap', $event)"
           />
         </div>
       </div>

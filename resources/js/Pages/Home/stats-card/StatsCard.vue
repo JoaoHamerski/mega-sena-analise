@@ -3,13 +3,6 @@ import { ref } from 'vue';
 import StatsCardLateNumbers from './StatsCardLateNumbers.vue';
 import StatsCardOddEvenOccurrences from './StatsCardOddEvenOccurrences.vue';
 
-defineProps({
-  heatmap: {
-    type: Boolean,
-    default: false
-  }
-})
-
 const loading = ref(false)
 </script>
 
@@ -31,7 +24,6 @@ const loading = ref(false)
       <div class="pb-5">
         <StatsCardLateNumbers
           v-model:loading="loading"
-          :heatmap="heatmap"
         />
       </div>
 

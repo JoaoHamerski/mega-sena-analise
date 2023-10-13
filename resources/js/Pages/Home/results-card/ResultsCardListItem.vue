@@ -1,17 +1,16 @@
 <script setup>
 import { formatDateTime } from '@/helpers/format-datetime'
 import BallNumber from '../partials/BallNumber.vue'
+import { inject } from 'vue';
 
 defineProps({
   result: {
     type: Object,
     required: true
-  },
-  heatmap: {
-    type: Boolean,
-    default: false
   }
 })
+
+const { heatmap } = inject('heatmap')
 </script>
 
 <template>

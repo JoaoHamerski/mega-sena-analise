@@ -1,17 +1,15 @@
 <script setup>
+import { inject } from 'vue';
 import NumbersCardBoardItem from './NumbersCardBoardItem.vue';
 
 defineProps({
   numbers: {
     type: Array,
     required: true,
-  },
-  heatmap: {
-    type: Boolean,
-    default: false
   }
 })
 
+const { heatmap } = inject('heatmap')
 </script>
 
 <template>

@@ -1,13 +1,10 @@
 <script setup>
 import { formatDateTime } from '@/helpers/format-datetime';
+import { inject } from 'vue';
 
 import BallNumber from '../partials/BallNumber.vue';
 
 defineProps({
-  heatmap: {
-    type: Boolean,
-    default: false
-  },
   numbers: {
     type: Array,
     default: () => []
@@ -16,6 +13,7 @@ defineProps({
 
 const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime(item.game.date)}`
 
+const { heatmap } = inject('heatmap')
 </script>
 
 <template>

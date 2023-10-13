@@ -13,10 +13,6 @@ defineProps({
     type: Array,
     required: true
   },
-  heatmap: {
-    type: Boolean,
-    default: false
-  },
   hasMoreData: {
     type: Boolean,
     required: true
@@ -48,10 +44,7 @@ defineExpose({ scroller })
     @scroll-end="loadMore"
   >
     <template #default="{ item: result }">
-      <ResultsCardListItem
-        :result="result"
-        :heatmap="heatmap"
-      />
+      <ResultsCardListItem :result="result" />
     </template>
 
     <template #after>
