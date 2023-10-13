@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 trait MegaSenaResultsTrait
 {
-    public function getResultsWithRelativeOccurrences(MegaSenaRequest $request, Collection $numbers)
+    public function getResults(MegaSenaRequest $request, Collection $numbers)
     {
         $games = $this->queryGames($request)
             ->orderBy('date', 'desc')
@@ -20,11 +20,6 @@ trait MegaSenaResultsTrait
         return $games;
     }
 
-    public function getRelativeOccurrencesOfNumber(int $number, Collection $numbers)
-    {
-        return $numbers->where('number', $number)->first()['relative_occurrences'];
-    }
-
     public function appendOccurrencesToGameNumbers(array $games, Collection $numbers)
     {
         $games['data'] = Arr::map($games['data'], function ($item) use ($numbers) {
@@ -33,7 +28,7 @@ trait MegaSenaResultsTrait
 
                 $item["bola_{$i}"] = [
                     'number' => $number,
-                    'relative_occurrences' => $this->getRelativeOccurrencesOfNumber($number, $numbers)
+                    'relative_occurrences' => $this->findRelativeOccurrences($number, $numbers)
                 ];
             }
 
@@ -41,5 +36,12 @@ trait MegaSenaResultsTrait
         });
 
         return $games;
+    }
+
+    public function findRelativeOccurrences(int $searchNumber, Collection $numbers)
+    {
+        $number = $numbers->where('number', $searchNumber)->first();
+
+        return $number['relative_occurrences'];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
-use App\Traits\MegaSenaNumbersRelativeTrait;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -11,8 +10,6 @@ use Illuminate\Http\Request;
 
 class StatsLateNumbersController extends Controller
 {
-    use MegaSenaNumbersRelativeTrait;
-
     /**
      * Handle the incoming request.
      */
@@ -28,13 +25,24 @@ class StatsLateNumbersController extends Controller
         ];
     }
 
+    public function getNumbersByLongestLastOccurrence($intervalOfDays)
+    {
+        $numbers = $this->getNumbersByItsLastOccurrence();
+
+        $games = $this->filterByLongestOccurrences($numbers, $intervalOfDays);
+
+        return $games->sortBy('number')->values();
+    }
+
     public function getNumbersByItsLastOccurrence()
     {
         $numbers = collect(Cache::get('mega-sena:numbers'));
         $lastConcursoNumber = Game::latest()->first()->concurso;
 
         return $numbers->map(function ($number) use ($lastConcursoNumber) {
-            $lastOccurrenceGame = Game::whereNumber($number['number'])->orderBy('date', 'DESC')->first();
+            $lastOccurrenceGame = Game::whereNumber($number['number'])
+                ->orderBy('date', 'DESC')
+                ->first();
 
             return [
                 ...$number,
@@ -48,22 +56,10 @@ class StatsLateNumbersController extends Controller
 
     public function filterByLongestOccurrences($games, $interval)
     {
-        $lessThanDate = Carbon::now()->subDays($interval);
+        $maxOccurrenceDate = Carbon::now()->subDays($interval);
 
-        return $games->filter(function ($item) use ($lessThanDate) {
-            $date = Carbon::createFromFormat('Y-m-d', $item['game']['date']);
-
-            return $date < $lessThanDate;
-        });
-    }
-
-    public function getNumbersByLongestLastOccurrence($intervalOfDays)
-    {
-        $games = $this->getNumbersByItsLastOccurrence();
-
-        $games = $this->filterByLongestOccurrences($games, $intervalOfDays);
-
-        return $games->sortBy('number')
-            ->values();
+        return $games->filter(
+            fn ($item) => $item['game']['date'] < $maxOccurrenceDate
+        );
     }
 }

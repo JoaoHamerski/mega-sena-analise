@@ -11,14 +11,13 @@ use Inertia\Inertia;
 
 class MegaSenaController extends Controller
 {
-    use MegaSenaQueryTrait,
-        MegaSenaNumbersTrait,
+    use MegaSenaNumbersTrait,
         MegaSenaResultsTrait;
 
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbers = $this->getNumberOccurrences($request);
-        $results = fn () => $this->getResultsWithRelativeOccurrences($request, $numbers);
+        $numbers = $this->getNumbersWithOccurrences($request);
+        $results = fn () => $this->getResults($request, $numbers);
 
         $this->cacheNumbers($numbers);
 

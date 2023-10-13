@@ -3,35 +3,56 @@
 namespace App\Traits;
 
 use App\Http\Requests\MegaSenaRequest;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 trait MegaSenaNumbersTrait
 {
-    use MegaSenaNumbersRelativeTrait;
+    use MegaSenaQueryTrait,
+        MegaSenaMetadataTrait;
 
-    public function getNumberOccurrences(MegaSenaRequest $request)
+    public function getNumbersWithOccurrences(MegaSenaRequest $request)
     {
         $query = $this->queryGames($request);
 
-        $numbers = Arr::map(range(1, 60), fn ($number) => [
+        $numbers = Collection::range(1, 60)->map(fn ($number) => [
             'number' => $number,
-            'occurrences' => $this->countOccurrencesOfNumber($number, $query),
+            'occurrences' => $this->countOccurrences($number, $query),
         ]);
 
-        $numbersWithRelativeOccurrences = $this->appendRelativeOccurrences($numbers);
+        $numbers = $this->appendRelativeOccurrences($numbers, $this->getMetadata($numbers));
 
-        return $this->applyFilters($numbersWithRelativeOccurrences, $request);
+        return $numbers;
     }
 
-    public function applyFilters($numbers)
+    public function getRelativeOccurrence($occurrences, $metadata)
     {
-        $numbers = collect($numbers);
+        $max = $metadata['max'];
+        $min = $metadata['min'];
 
-        return $numbers->values();
+        if ($max === 0 && $min === 0) {
+            return 0;
+        }
+
+        $result = (($occurrences - $min) / ($max - $min)) * 100;
+
+        return (float) number_format($result, 2, '.', '');
     }
 
-    public function countOccurrencesOfNumber(int $number, $query)
+    public function appendRelativeOccurrences(Collection $numbers, $metadata)
     {
-        return $query->clone()->whereNumber($number)->count();
+        return $numbers->map(fn ($item) => [
+            ...$item,
+            ...[
+                'relative_occurrences' => $this->getRelativeOccurrence($item['occurrences'], $metadata)
+            ]
+        ]);
+    }
+
+    public function countOccurrences(int $number, $query)
+    {
+        return $query
+            ->clone()
+            ->whereNumber($number)
+            ->count();
     }
 }

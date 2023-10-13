@@ -31,8 +31,8 @@ const fetchData = async () => {
     }
   })
 
-  Object.assign(data.value, response)
-  Object.assign(originalData.value, response)
+  Object.assign(data.value, {...response})
+  Object.assign(originalData.value, {...response})
 
   sortNumbers(form.value.sort)
 

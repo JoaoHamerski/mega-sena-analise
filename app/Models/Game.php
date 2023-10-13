@@ -15,6 +15,9 @@ class Game extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $casts = [
+        'date' => 'date'
+    ];
 
     public function ballColumns(): Attribute
     {
