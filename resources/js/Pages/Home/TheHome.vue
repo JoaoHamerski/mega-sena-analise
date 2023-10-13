@@ -5,6 +5,7 @@ import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
 import StatsCard from './stats-card/StatsCard.vue'
 import { router } from '@inertiajs/vue3';
+import { replaceState } from '@/utils/replace-state';
 
 defineProps({
   numbers: {
@@ -16,7 +17,10 @@ defineProps({
 const heatmap = ref(route().params.heatmap === 'true')
 const month = ref(route().params.month ?? '')
 
-const updateHeatmap = (value) => heatmap.value = value
+const updateHeatmap = (value) => {
+  heatmap.value = value
+  replaceState({heatmap: value})
+}
 const updateMonth = (value) => month.value = value
 
 provide('month', { month, updateMonth })
