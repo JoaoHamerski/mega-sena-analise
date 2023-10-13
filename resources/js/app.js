@@ -12,32 +12,32 @@ import { useFontawesomePlugin } from './plugins/fontawesome';
 const pinia =  createPinia()
 
 const usePlugins = (app, inertiaPlugin) => {
-    registerGlobalComponents(app)
-    useZiggyPlugin(app)
-    useFontawesomePlugin(app)
+  registerGlobalComponents(app)
+  useZiggyPlugin(app)
+  useFontawesomePlugin(app)
 
-    app.use(inertiaPlugin)
-        .use(pinia)
-        .use(autoAnimatePlugin)
+  app.use(inertiaPlugin)
+    .use(pinia)
+    .use(autoAnimatePlugin)
 }
 
 const title = (title) => title
-    ? `${title} - Mega Sena Análise`
-    : "Mega Sena Análise"
+  ? `${title} - Mega Sena Análise`
+  : "Mega Sena Análise"
 
 const setup = ({el, App, props, plugin}) => {
-    const app = createApp(App, props)
+  const app = createApp(App, props)
 
-    usePlugins(app, plugin)
+  usePlugins(app, plugin)
 
-    return app.mount(el)
+  return app.mount(el)
 }
 
 createInertiaApp({
-    title,
-    resolve: resolveComponent,
-    setup,
-    progress: {
-        color: '#006aff',
-    },
+  title,
+  resolve: resolveComponent,
+  setup,
+  progress: {
+      color: '#006aff',
+  },
 });
