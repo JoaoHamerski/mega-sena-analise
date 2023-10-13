@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+
 import StatsCardLateNumbers from './StatsCardLateNumbers.vue';
 import StatsCardOddEvenOccurrences from './StatsCardOddEvenOccurrences.vue';
 
@@ -21,15 +22,11 @@ const loading = ref(false)
     <template #body>
       <AppLoading :value="loading" />
 
-      <div class="pb-5">
-        <StatsCardLateNumbers
-          v-model:loading="loading"
-        />
-      </div>
-
-      <div>
-        <StatsCardOddEvenOccurrences v-model:loading="loading" />
-      </div>
+      <StatsCardLateNumbers
+        v-model:loading="loading"
+        class="mb-5"
+      />
+      <StatsCardOddEvenOccurrences v-model:loading="loading" />
     </template>
   </AppCard>
 </template>
