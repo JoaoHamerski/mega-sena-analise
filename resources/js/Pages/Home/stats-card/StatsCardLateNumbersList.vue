@@ -1,5 +1,5 @@
 <script setup>
-import { formatDateTime } from '@/helpers/format-datetime';
+import { formatDateTime } from '@/formatters/format-datetime';
 import { inject } from 'vue';
 
 import BallNumber from '../partials/BallNumber.vue';

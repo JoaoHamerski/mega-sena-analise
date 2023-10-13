@@ -2,7 +2,7 @@
 import { router } from '@inertiajs/vue3';
 import { inject, reactive } from 'vue';
 import DatePicker from '@/components/DatePicker.vue'
-import { replaceState } from '@/helpers/replace-state'
+import { replaceState } from '@/utils/replace-state'
 
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
@@ -67,3 +67,4 @@ const submit = () => {
     </div>
   </form>
 </template>
+@/utils/replace-state
