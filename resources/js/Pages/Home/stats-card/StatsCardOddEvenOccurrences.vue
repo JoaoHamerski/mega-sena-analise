@@ -12,7 +12,7 @@ const fetchData = async () => {
 
   const { data: response } = await axios.get(route('stats.odd-even'), {
     params: {
-      month: month.value
+      month: month.value || null
     }
   })
 

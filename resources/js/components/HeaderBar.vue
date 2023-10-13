@@ -19,6 +19,7 @@ const currentRoute = computed(() => {
           :class="{
             'text-primary': currentRoute === 'home.index'
           }"
+          :only="['numbers']"
         >
           INÍCIO
         </Link>

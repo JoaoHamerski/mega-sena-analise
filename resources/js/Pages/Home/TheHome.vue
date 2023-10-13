@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide, onBeforeMount } from 'vue';
+import { ref, provide, onMounted } from 'vue';
 
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
@@ -22,7 +22,7 @@ const updateMonth = (value) => month.value = value
 provide('month', { month, updateMonth })
 provide('heatmap', { heatmap, updateHeatmap })
 
-onBeforeMount(() => {
+onMounted(() => {
   router.reload({
     only: ['numbers'],
   })
