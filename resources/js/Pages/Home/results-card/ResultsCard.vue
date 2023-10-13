@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, inject } from 'vue';
+import { ref, watch, inject } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 import ResultsCardList from './ResultsCardList.vue'
@@ -46,8 +46,6 @@ router.on('finish', () => {
 watch(month, () => {
   page.value = 1
 })
-
-onMounted(() => fetchData())
 </script>
 
 <template>

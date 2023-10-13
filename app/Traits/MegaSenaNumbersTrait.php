@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Http\Requests\MegaSenaRequest;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 trait MegaSenaNumbersTrait
 {
@@ -21,7 +22,14 @@ trait MegaSenaNumbersTrait
 
         $numbers = $this->appendRelativeOccurrences($numbers, $this->getMetadata($numbers));
 
+        $this->cacheNumbers($numbers);
+
         return $numbers;
+    }
+
+    public function cacheNumbers($numbers)
+    {
+        Cache::put('mega-sena:numbers', $numbers);
     }
 
     public function getRelativeOccurrence($occurrences, $metadata)

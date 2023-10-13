@@ -16,22 +16,15 @@ class MegaSenaController extends Controller
 
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbers = $this->getNumbersWithOccurrences($request);
-        $resultsCallback = fn () => $this->getResults($request, $numbers);
-
-        $this->cacheNumbers($numbers);
+        $numbersCallback = fn () => $this->getNumbersWithOccurrences($request);
+        $resultsCallback = fn () => $this->getResults($request);
 
         return Inertia::render(
             'Home/TheHome',
             [
-                'numbers' => $numbers,
+                'numbers' => Inertia::lazy($numbersCallback),
                 'results' =>  Inertia::lazy($resultsCallback),
             ]
         );
-    }
-
-    public function cacheNumbers($numbers)
-    {
-        Cache::put('mega-sena:numbers', $numbers);
     }
 }

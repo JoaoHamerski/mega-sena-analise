@@ -1,14 +1,15 @@
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, provide, onBeforeMount } from 'vue';
 
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
 import StatsCard from './stats-card/StatsCard.vue'
+import { router } from '@inertiajs/vue3';
 
 defineProps({
   numbers: {
     type: Array,
-    required: true
+    default: () => []
   }
 })
 
@@ -20,6 +21,12 @@ const updateMonth = (value) => month.value = value
 
 provide('month', { month, updateMonth })
 provide('heatmap', { heatmap, updateHeatmap })
+
+onBeforeMount(() => {
+  router.reload({
+    only: ['numbers'],
+  })
+})
 </script>
 
 <template>

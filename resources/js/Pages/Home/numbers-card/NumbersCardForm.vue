@@ -36,7 +36,8 @@ const submit = () => {
 
   router.reload({
     data: params,
-    preserveState: true
+    preserveState: true,
+    only: ['numbers']
   })
 }
 

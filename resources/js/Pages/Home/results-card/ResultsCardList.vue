@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import ResultsCardListItem from './ResultsCardListItem.vue'
 import { RecycleScroller } from 'vue-virtual-scroller'
 
@@ -39,7 +39,9 @@ defineExpose({ scroller })
     @scroll-end="loadMore"
   >
     <template #default="{ item: result }">
-      <ResultsCardListItem :result="result" />
+      <ResultsCardListItem
+        :result="result"
+      />
     </template>
 
     <template #after>

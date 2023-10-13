@@ -1,18 +1,18 @@
 <script setup>
 import axios from '@/plugins/axios'
-import { usePage } from '@inertiajs/vue3';
-import { computed, watch, onMounted, ref } from 'vue';
+import { watch, onMounted, ref, inject } from 'vue';
 import { formatNumber } from '@/formatters/format-number'
 
 const emit = defineEmits(['update:loading'])
 const data = ref({})
+const { month } = inject('month')
 
 const fetchData = async () => {
   emit('update:loading', true)
 
   const { data: response } = await axios.get(route('stats.odd-even'), {
     params: {
-      month: queryMonth.value
+      month: month.value
     }
   })
 
@@ -21,9 +21,7 @@ const fetchData = async () => {
   emit('update:loading', false)
 }
 
-const queryMonth = computed(() => usePage().props.query.month)
-
-watch(queryMonth, () => {
+watch(month, () => {
   fetchData()
 })
 
