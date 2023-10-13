@@ -1,11 +1,11 @@
 <script setup>
 import { ref, provide, onMounted } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { replaceState } from '@/utils/replace-state';
 
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
 import StatsCard from './stats-card/StatsCard.vue'
-import { router } from '@inertiajs/vue3';
-import { replaceState } from '@/utils/replace-state';
 
 defineProps({
   numbers: {
