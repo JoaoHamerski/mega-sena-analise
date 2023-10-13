@@ -1,8 +1,8 @@
 <script setup>
 import axios from '@/plugins/axios'
 import { usePage } from '@inertiajs/vue3';
-import { computed, watch } from 'vue';
-import { onMounted, ref } from 'vue';
+import { computed, watch, onMounted, ref } from 'vue';
+import { formatNumber } from '@/formatters/format-number'
 
 const emit = defineEmits(['update:loading'])
 const data = ref({})
@@ -40,10 +40,10 @@ onMounted(() => {
     <template #content>
       <div class="flex justify-between">
         <div>
-          <b>Pares: </b> {{ data.even }}
+          <b>Pares: </b> {{ formatNumber(data.even) }}
         </div>
         <div>
-          <b>Ímpares: </b> {{ data.odd }}
+          <b>Ímpares: </b> {{ formatNumber(data.odd) }}
         </div>
       </div>
     </template>
