@@ -13,7 +13,7 @@ defineProps({
   }
 })
 
-const { heatmap } = inject('heatmap')
+const { heatmap, updateHeatmap } = inject('heatmap')
 
 const form = reactive({
   month: route().params.month ?? '',
@@ -50,8 +50,9 @@ const submit = () => {
         </div>
         <div>
           <AppCheckbox
-            v-model="heatmap"
+            :model-value="heatmap"
             label="Mapa de calor"
+            @update:model-value="updateHeatmap"
           />
         </div>
       </div>

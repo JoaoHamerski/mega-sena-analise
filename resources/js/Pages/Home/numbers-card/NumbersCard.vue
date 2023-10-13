@@ -33,12 +33,8 @@ const computedNumbers = computed(
       Resultados da MEGA SENA
     </template>
     <template #body>
-      <NumbersCardForm
-        v-model:sort="sort"
-      />
-      <NumbersCardBoard
-        :numbers="computedNumbers"
-      />
+      <NumbersCardForm v-model:sort="sort" />
+      <NumbersCardBoard :numbers="computedNumbers" />
     </template>
   </AppCard>
 </template>

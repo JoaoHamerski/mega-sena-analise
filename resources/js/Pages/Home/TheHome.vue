@@ -13,8 +13,9 @@ defineProps({
 })
 
 const heatmap = ref(route().params.heatmap === 'true')
+const updateHeatmap = (value) => heatmap.value = value
 
-provide('heatmap', {heatmap})
+provide('heatmap', { heatmap, updateHeatmap })
 </script>
 
 <template>
@@ -22,7 +23,7 @@ provide('heatmap', {heatmap})
     <div class="grid grid-cols-[1.7fr,.9fr,1.1fr] gap-x-5 mb-5">
       <NumbersCard :numbers="numbers" />
       <ResultsCard />
-      <StatsCard :heatmap="heatmap" />
+      <StatsCard />
     </div>
   </div>
 </template>
