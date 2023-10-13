@@ -1,8 +1,9 @@
 <script setup>
+import { inject } from 'vue';
 import { router } from '@inertiajs/vue3';
-import { inject, reactive } from 'vue';
-import DatePicker from '@/components/DatePicker.vue'
 import { replaceState } from '@/utils/replace-state'
+
+import DatePicker from '@/components/DatePicker.vue'
 
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
@@ -14,27 +15,31 @@ defineProps({
 })
 
 const { heatmap, updateHeatmap } = inject('heatmap')
+const { month, updateMonth } = inject('month')
 
-const form = reactive({
-  month: route().params.month ?? '',
-})
+const onSortChange = (value) => {
+  replaceState({sort: value})
 
-const onUpdateProp = (prop, value) => {
-  replaceState({[prop]: value})
-
-  emit(`update:${prop}`, value)
+  emit('update:sort', value)
 }
 
 const onMonthChange = (value) => {
-  form.month = value
+  updateMonth(value)
   submit()
 }
 
 const submit = () => {
-  router.get('/', {...route().params, ...form}, {
+  const params = {
+    ...route().params,
+    ...{ month: month.value }
+  }
+
+  router.reload({
+    data: params,
     preserveState: true
   })
 }
+
 </script>
 
 <template>
@@ -45,7 +50,7 @@ const submit = () => {
           <AppCheckbox
             :model-value="sort"
             label="Ordenar por ocorrências"
-            @update:model-value="onUpdateProp('sort', $event)"
+            @update:model-value="onSortChange"
           />
         </div>
         <div>
@@ -58,7 +63,7 @@ const submit = () => {
       </div>
       <div>
         <DatePicker
-          :model-value="form.month"
+          :model-value="month"
           name="month"
           label="RESULTADOS À PARTIR DE:"
           @update:model-value="onMonthChange"
@@ -67,4 +72,3 @@ const submit = () => {
     </div>
   </form>
 </template>
-@/utils/replace-state

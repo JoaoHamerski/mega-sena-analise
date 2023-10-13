@@ -13,8 +13,12 @@ defineProps({
 })
 
 const heatmap = ref(route().params.heatmap === 'true')
-const updateHeatmap = (value) => heatmap.value = value
+const month = ref(route().params.month ?? '')
 
+const updateHeatmap = (value) => heatmap.value = value
+const updateMonth = (value) => month.value = value
+
+provide('month', { month, updateMonth })
 provide('heatmap', { heatmap, updateHeatmap })
 </script>
 

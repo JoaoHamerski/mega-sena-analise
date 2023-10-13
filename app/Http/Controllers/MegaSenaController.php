@@ -17,7 +17,7 @@ class MegaSenaController extends Controller
     public function __invoke(MegaSenaRequest $request)
     {
         $numbers = $this->getNumbersWithOccurrences($request);
-        $results = fn () => $this->getResults($request, $numbers);
+        $resultsCallback = fn () => $this->getResults($request, $numbers);
 
         $this->cacheNumbers($numbers);
 
@@ -25,7 +25,7 @@ class MegaSenaController extends Controller
             'Home/TheHome',
             [
                 'numbers' => $numbers,
-                'results' =>  Inertia::lazy($results),
+                'results' =>  Inertia::lazy($resultsCallback),
             ]
         );
     }

@@ -1,6 +1,5 @@
 <script setup>
-import { computed, onMounted, watch, ref } from 'vue';
-import { usePage } from '@inertiajs/vue3';
+import { onMounted, watch, ref, inject } from 'vue';
 import axios from '@/plugins/axios';
 import { sortBy } from 'lodash-es'
 
@@ -12,8 +11,6 @@ const emit = defineEmits(['update:loading'])
 const form = ref({interval: '60', sort: false})
 const data = ref({late_numbers: [], interval: ''})
 const originalData = ref({late_numbers: [], interval: ''})
-
-const queryMonth = computed(() => usePage().props.query.month)
 
 const fetchData = async () => {
   emit('update:loading', true)
@@ -44,9 +41,11 @@ const sortNumbers = (value) => {
     : originalData.value.late_numbers
 }
 
+const { month } = inject('month')
+
 onMounted(() => { fetchData() })
 
-watch(queryMonth, () => { fetchData() })
+watch(month, () => { fetchData() })
 </script>
 
 <template>

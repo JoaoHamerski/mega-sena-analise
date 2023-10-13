@@ -22,10 +22,6 @@ const loadMore = () => {
   emit('results:load-more')
 }
 
-onMounted(() => {
-  loadMore()
-})
-
 defineExpose({ scroller })
 </script>
 
