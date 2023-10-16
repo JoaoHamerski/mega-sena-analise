@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MegaSenaRequest;
-use App\Traits\MegaSenaQueryTrait;
-use Illuminate\Support\Facades\Cache;
+use App\Traits\MegaSenaNumbersTrait;
 
 class StatsOddEvenOccurrencesController extends Controller
 {
-    use MegaSenaQueryTrait;
+    use MegaSenaNumbersTrait;
 
     /**
      * Handle the incoming request.
      */
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbers = Cache::get('mega-sena:numbers');
+        $numbers = $this->getNumbersWithOccurrences($request);
 
         $odd = 0;
         $even = 0;

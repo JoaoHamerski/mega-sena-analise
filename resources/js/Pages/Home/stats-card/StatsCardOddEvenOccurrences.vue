@@ -4,13 +4,13 @@ import { watch, onMounted, ref, inject } from 'vue';
 import { formatNumber } from '@/formatters/format-number'
 
 const emit = defineEmits(['update:loading'])
-const data = ref({})
+const data = ref({odd: 0, even: 0})
 const { month } = inject('month')
 
 const fetchData = async () => {
   emit('update:loading', true)
 
-  const { data: response } = await axios.get(route('stats.odd-even'), {
+  const { data: response } = await axios.get(route('stats.odd-even-occurrences'), {
     params: {
       month: month.value || null
     }
@@ -35,6 +35,7 @@ onMounted(() => {
     <template #title>
       Pares e ímpares
     </template>
+
     <template #content>
       <div class="flex justify-between">
         <div>

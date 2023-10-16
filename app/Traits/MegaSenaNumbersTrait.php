@@ -22,9 +22,12 @@ trait MegaSenaNumbersTrait
 
         $numbers = $this->appendRelativeOccurrences($numbers, $this->getMetadata($numbers));
 
-        $this->cacheNumbers($numbers);
-
         return $numbers;
+    }
+
+    public function cacheResults($results)
+    {
+        Cache::put('mega-sena:results', $results);
     }
 
     public function cacheNumbers($numbers)

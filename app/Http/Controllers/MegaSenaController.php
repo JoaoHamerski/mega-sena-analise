@@ -6,7 +6,6 @@ use App\Http\Requests\MegaSenaRequest;
 use App\Traits\MegaSenaNumbersTrait;
 use App\Traits\MegaSenaQueryTrait;
 use App\Traits\MegaSenaResultsTrait;
-use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class MegaSenaController extends Controller

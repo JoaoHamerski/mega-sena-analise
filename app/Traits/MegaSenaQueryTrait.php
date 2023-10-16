@@ -5,11 +5,11 @@ namespace App\Traits;
 use App\Http\Requests\MegaSenaRequest;
 use App\Models\Game;
 use Carbon\Carbon;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 trait MegaSenaQueryTrait
 {
-    public function queryGames(MegaSenaRequest $request, Builder $query = null)
+    public function queryGames(MegaSenaRequest $request, Builder $query = null): Builder
     {
         $query = $query ?? Game::query();
 
