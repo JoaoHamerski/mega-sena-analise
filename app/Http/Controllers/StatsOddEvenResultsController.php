@@ -28,10 +28,26 @@ class StatsOddEvenResultsController extends Controller
             $this->assignResults($oddGamesCount, $count['odd']);
         });
 
+        $evenGamesCount = $this->applyPercentages($evenGamesCount);
+        $oddGamesCount = $this->applyPercentages($oddGamesCount);
+
         return [
             'even_games_count' => $evenGamesCount,
             'odd_games_count' => $oddGamesCount
         ];
+    }
+
+    public function applyPercentages($gamesCount)
+    {
+        $total = collect($gamesCount)->pluck('occurrences')->sum();
+
+        return Arr::map(
+            $gamesCount,
+            fn ($item) => [
+                'occurrences' => $item['occurrences'],
+                'percentage' => +bcdiv(100 * $item['occurrences'], $total, 2)
+            ]
+        );
     }
 
     public function assignResults(&$gamesCount, $count)

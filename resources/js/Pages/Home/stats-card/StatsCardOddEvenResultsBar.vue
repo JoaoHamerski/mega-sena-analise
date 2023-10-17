@@ -2,45 +2,45 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-  left: {
+  total: {
     type: Number,
-    required: true
+    default: null
   },
-  right: {
+  size: {
     type: Number,
-    required: true
+    default: null
+  },
+  percentage: {
+    type: Number,
+    default: null
+  },
+  bgClass: {
+    type: String,
+    default: 'bg-emerald-600'
   }
 })
 
-const total = computed(() => props.left + props.right)
+const computedPercentage = computed(() =>
+  props.percentage ?? (props.size * 100) / props.total
+)
 
-const percentage = computed(() => {
-  const left = (props.left * 100) / total.value
-  const right = (props.right * 100) / total.value
-
-  return {left, right}
-})
+const remainingPercentage = computed(() => 100 - computedPercentage.value)
 </script>
 
 <template>
-  <div
-    class="flex justify-between w-full px-3 h-5 text-sm text-center font-bold text-white"
-  >
+  <div class="h-5 flex w-full">
     <div
-      class="h-full bg-emerald-600 rounded-l"
+      class="h-full rounded-l transition-[width]"
+      :class="[bgClass, {'rounded': computedPercentage === 100}]"
       :style="{
-        width: `${percentage.left}%`
+        width: `${computedPercentage}%`
       }"
-    >
-      {{ left }}
-    </div>
+    />
     <div
-      class="h-full bg-sky-600 rounded-r"
+      class="h-full bg-slate-200 rounded-r transition-[width]"
       :style="{
-        width: `${percentage.right}%`
+        width: `${remainingPercentage}%`
       }"
-    >
-      {{ right }}
-    </div>
+    />
   </div>
 </template>
