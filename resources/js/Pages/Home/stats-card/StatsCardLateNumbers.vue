@@ -50,7 +50,7 @@ watch(month, () => { fetchData() })
 </script>
 
 <template>
-  <AppContainer>
+  <AppContainer class="">
     <template #title>
       Atrasados há mais de {{ data.interval || 'X' }} dias
     </template>
