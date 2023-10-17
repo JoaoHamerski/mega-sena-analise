@@ -18,7 +18,6 @@ const loading = ref(false)
       />
       Estatísticas
     </template>
-
     <template #body>
       <div class="h-[70vh] overflow-y-auto custom-scroll custom-scroll-spaced">
         <AppLoading :value="loading" />
