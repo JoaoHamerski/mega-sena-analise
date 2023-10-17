@@ -50,22 +50,19 @@ watch(month, () => { fetchData() })
 </script>
 
 <template>
-  <AppContainer class="static">
+  <AppContainer>
     <template #title>
       Atrasados há mais de {{ data.interval || 'X' }} dias
     </template>
-
     <template #content>
       <StatsCardLateNumbersForm
         v-model:interval="form.interval"
         @update:sort="onSortChange"
         @form:submit="fetchData"
       />
-
       <StatsCardLateNumbersList
         :numbers="data.late_numbers"
       />
-
       <div class="text-gray-600 text-xs mt-4">
         Números com última recorrência por intervalo de dias.
       </div>

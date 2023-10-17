@@ -1,6 +1,10 @@
 .custom-scroll {
+    &.custom-scroll {
+        @apply mr-1 pr-1;
+    }
+
     &.custom-scroll-spaced {
-        @apply -mr-3 pr-2;
+        @apply -mr-3 pr-3;
     }
 
     &::-webkit-scrollbar {
