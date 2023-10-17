@@ -10,7 +10,7 @@ defineProps({
   }
 })
 
-const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime(item.game.date)}`
+const dataTipFor = (item) => `Concurso: ${item.game.concurso}`
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime
       :key="item"
       :number="item.number"
       :relative-occurrences="item.relative_occurrences"
-      class="py-2 tooltip tooltip-left"
+      class="py-2 tooltip tooltip-top"
       :data-tip="dataTipFor(item)"
       style-name="normal"
       :padding="false"
