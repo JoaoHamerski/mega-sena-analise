@@ -5,6 +5,10 @@ const props = defineProps({
   color: {
     type: String,
     default: 'bg-primary'
+  },
+  padding: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -26,7 +30,11 @@ const headerClass = computed(() => {
     >
       <slot name="header" />
     </div>
-    <div class="p-5 relative">
+    <div
+      :class="{
+        'p-5': padding
+      }"
+    >
       <slot name="body" />
     </div>
   </div>

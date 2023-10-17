@@ -50,7 +50,8 @@ watch(month, () => {
 
 <template>
   <AppCard
-    color="bg-blue-600 "
+    color="bg-blue-600"
+    :padding="false"
   >
     <template #header>
       <FWIcon
@@ -60,7 +61,7 @@ watch(month, () => {
       Lista de concursos
     </template>
     <template #body>
-      <div class="max-h-[70vh]">
+      <div class="max-h-[70vh] py-5">
         <ResultsCardList
           ref="resultsCardList"
           :has-more-data="hasMoreData"

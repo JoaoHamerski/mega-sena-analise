@@ -20,7 +20,7 @@ const loading = ref(false)
     </template>
 
     <template #body>
-      <div class="h-[70vh] overflow-auto custom-scroll">
+      <div class="h-[70vh] overflow-auto custom-scroll custom-scroll-spaced">
         <AppLoading :value="loading" />
         <StatsCardLateNumbers
           v-model:loading="loading"

@@ -1,8 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useMegaSenaStore } from '@/pinia/mega-sena';
-
-const megaSenaStore = useMegaSenaStore()
+import { tap } from 'lodash-es';
 
 const props = defineProps({
   number: {
@@ -13,32 +12,38 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  smallStyle: {
-    type: Boolean,
-    default: false
-  },
-  customStyle: {
+  styleName: {
     type: String,
-    default: ''
+    default: 'normal',
+    validator: (value) => ['normal', 'circle'].includes(value)
+  },
+  padding: {
+    type: Boolean,
+    default: true
   }
 })
 
-const SMALL_STYLE_CLASS = 'rounded-full border border-black p-2 w-10 h-10'
-const DEFAULT_STYLE_CLASS = 'rounded border border-slate-500 px-4 py-2 w-16'
-
-const classNames = computed(() => {
-  const classes = []
-
-  if (props.customStyle) {
-    classes.push(props.customStyle)
-  } else {
-    classes.push(props.smallStyle ? SMALL_STYLE_CLASS : DEFAULT_STYLE_CLASS)
+const STYLES = {
+  normal: {
+    classes: 'rounded w-16',
+    padding: 'px-4 py-2',
+    icon: 'right-0 top-0'
+  },
+  circle: {
+    classes: 'rounded-full w-10 h-10',
+    padding: 'p-2',
+    icon: '-right-2 -top-1 rounded-full'
   }
+}
 
-  return classes
-})
+const megaSenaStore = useMegaSenaStore()
+
+const isNumberSelected = computed(
+  () => megaSenaStore.selectedGameNumbers.includes(props.number)
+)
 
 const heatmap = computed(() => megaSenaStore.heatmap)
+
 const heatmapBg = computed(() => {
   const MAX_DARKNESS = 80
   const relativeOccurrences = props.relativeOccurrences
@@ -53,23 +58,52 @@ const heatmapBg = computed(() => {
 
 const bgIsDark = computed(() => heatmap.value && props.relativeOccurrences > 35)
 
-const textColor = computed(() => bgIsDark.value ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')
+const textColorClass = computed(() => bgIsDark.value ? 'text-white' : 'text-dark')
 
 const bgColor = computed(() => !heatmap.value
   ? 'rgb(255, 255, 255)'
   : heatmapBg.value
 )
+
+const style = computed(() => STYLES[props.styleName])
+
+const classNames = computed(() => {
+  const classes = []
+
+  if (props.padding) {
+    classes.push(style.value.padding)
+  }
+
+  return tap(classes, () => classes.push(
+    ...[
+      style.value.classes,
+      textColorClass.value
+    ]
+  ))
+})
+
+const iconClassNames = computed(() => style.value.icon)
 </script>
 
 <template>
   <span
-    class="transition-colors text-center"
+    class="transition-colors text-center relative border border-black"
     :class="classNames"
     :style="{
       backgroundColor: bgColor,
-      color: textColor
     }"
   >
-    <slot v-bind="{textColor, bgColor, number}" />
+    <Transition
+      enter-active-class="animate__animated animate__fadeIn animate__evenFaster"
+      leave-active-class="animate__animated animate__fadeOut animate__evenFaster"
+    >
+      <FWIcon
+        v-if="isNumberSelected"
+        icon="fas fa-check"
+        class="absolute p-1 text-white bg-emerald-600 border border-emerald-700 text-[.5rem]"
+        :class="iconClassNames"
+      />
+    </Transition>
+    <slot v-bind="{textColorClass, bgColor, number}" />
   </span>
 </template>

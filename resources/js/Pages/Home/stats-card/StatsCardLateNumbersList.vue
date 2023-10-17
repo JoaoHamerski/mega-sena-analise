@@ -23,9 +23,10 @@ const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime
       :key="item"
       :number="item.number"
       :relative-occurrences="item.relative_occurrences"
-      class="tooltip tooltip-left"
+      class="py-2 tooltip tooltip-left"
       :data-tip="dataTipFor(item)"
-      custom-style="border rounded border-slate-600 py-2"
+      style-name="normal"
+      :padding="false"
     >
       <template #default="{ number }">
         <span class="font-bold">{{ number }}</span>

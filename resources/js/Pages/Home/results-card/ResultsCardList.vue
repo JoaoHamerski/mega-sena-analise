@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { RecycleScroller } from 'vue-virtual-scroller'
 import { useMegaSenaStore } from '@/pinia/mega-sena';
 
@@ -21,6 +21,8 @@ defineProps({
   }
 })
 
+const activeId = computed(() => megaSenaStore?.selectedGame?.id || null)
+
 const onItemClick = (game) => {
   megaSenaStore.setSelectedGame(game)
 }
@@ -35,18 +37,18 @@ defineExpose({ scroller })
 <template>
   <RecycleScroller
     ref="scroller"
-    class="scroller overflow-auto custom-scroll"
+    class="scroller overflow-auto custom-scroll mr-1 pr-1"
     :items="results"
-    :item-size="90"
+    :item-size="100"
     style="height: 70vh"
     list-tag="ul"
     item-tag="li"
-    item-class="border-b pb-3"
     :buffer="50"
     @scroll-end="loadMore"
   >
     <template #default="{ item: result }">
       <ResultsCardListItem
+        :active="result.id === activeId"
         :result="result"
         @click.prevent="onItemClick(result)"
       />

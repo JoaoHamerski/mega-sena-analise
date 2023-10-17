@@ -1,31 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-@import './datepicker.scss';
-
-html,
-body,
-#app {
-    @apply h-full;
-}
+@import 'libs/all.scss';
+@import 'partials/all.scss';
 
 
-.custom-scroll {
-    @apply -mr-3 pr-2;
 
-    &::-webkit-scrollbar {
-        @apply w-2;
-    }
 
-    &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        @apply rounded-lg;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        @apply bg-blue-600 rounded-lg;
-
-    }
-}

@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faChartSimple,
   faCircle,
-  faList
+  faCheck,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 
 
 library.add(
   faList,
   faChartSimple,
-  faCircle
+  faCircle,
+  faCheck
 )
 
 export const useFontawesomePlugin = (app) => {
