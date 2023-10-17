@@ -11,6 +11,7 @@ const emit = defineEmits(['update:loading'])
 const form = ref({interval: '60', sort: false})
 const data = ref({late_numbers: [], interval: ''})
 const originalData = ref({late_numbers: [], interval: ''})
+const { month } = inject('month')
 
 const fetchData = async () => {
   emit('update:loading', true)
@@ -41,7 +42,7 @@ const sortNumbers = (value) => {
     : originalData.value.late_numbers
 }
 
-const { month } = inject('month')
+
 
 onMounted(() => { fetchData() })
 
@@ -49,28 +50,26 @@ watch(month, () => { fetchData() })
 </script>
 
 <template>
-  <div>
-    <AppContainer>
-      <template #title>
-        Atrasados há mais de {{ data.interval || 'X' }} dias
-      </template>
+  <AppContainer class="static">
+    <template #title>
+      Atrasados há mais de {{ data.interval || 'X' }} dias
+    </template>
 
-      <template #content>
-        <StatsCardLateNumbersForm
-          v-model:interval="form.interval"
-          @update:sort="onSortChange"
-          @form:submit="fetchData"
-        />
+    <template #content>
+      <StatsCardLateNumbersForm
+        v-model:interval="form.interval"
+        @update:sort="onSortChange"
+        @form:submit="fetchData"
+      />
 
-        <StatsCardLateNumbersList
-          :numbers="data.late_numbers"
-        />
+      <StatsCardLateNumbersList
+        :numbers="data.late_numbers"
+      />
 
-        <div class="text-gray-600 text-xs mt-4">
-          Números com última recorrência por intervalo de dias.
-        </div>
-      </template>
-    </AppContainer>
-  </div>
+      <div class="text-gray-600 text-xs mt-4">
+        Números com última recorrência por intervalo de dias.
+      </div>
+    </template>
+  </AppContainer>
 </template>
 

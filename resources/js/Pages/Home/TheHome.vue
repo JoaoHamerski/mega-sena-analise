@@ -1,7 +1,6 @@
 <script setup>
 import { ref, provide, onMounted } from 'vue';
 import { router } from '@inertiajs/vue3';
-import { replaceState } from '@/utils/replace-state';
 
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
@@ -14,17 +13,11 @@ defineProps({
   }
 })
 
-const heatmap = ref(route().params.heatmap === 'true')
 const month = ref(route().params.month ?? '')
 
-const updateHeatmap = (value) => {
-  heatmap.value = value
-  replaceState({heatmap: value})
-}
 const updateMonth = (value) => month.value = value
 
 provide('month', { month, updateMonth })
-provide('heatmap', { heatmap, updateHeatmap })
 
 onMounted(() => {
   router.reload({

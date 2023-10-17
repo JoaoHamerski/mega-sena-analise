@@ -1,5 +1,4 @@
 <script setup>
-import { inject } from 'vue';
 import NumbersCardBoardItem from './NumbersCardBoardItem.vue';
 
 defineProps({
@@ -9,7 +8,6 @@ defineProps({
   }
 })
 
-const { heatmap } = inject('heatmap')
 </script>
 
 <template>
@@ -21,7 +19,6 @@ const { heatmap } = inject('heatmap')
       v-for="number in numbers"
       :key="number.number"
       :number="number"
-      :heatmap="heatmap"
     />
   </div>
 </template>

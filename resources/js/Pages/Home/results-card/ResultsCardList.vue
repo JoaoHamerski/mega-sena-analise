@@ -1,11 +1,14 @@
 <script setup>
 import { ref } from 'vue';
-import ResultsCardListItem from './ResultsCardListItem.vue'
 import { RecycleScroller } from 'vue-virtual-scroller'
+import { useMegaSenaStore } from '@/pinia/mega-sena';
+
+import ResultsCardListItem from './ResultsCardListItem.vue'
 
 const emit = defineEmits(['results:load-more'])
 
 const scroller = ref(null)
+const megaSenaStore = useMegaSenaStore()
 
 defineProps({
   results: {
@@ -18,6 +21,10 @@ defineProps({
   }
 })
 
+const onItemClick = (game) => {
+  megaSenaStore.setSelectedGame(game)
+}
+
 const loadMore = () => {
   emit('results:load-more')
 }
@@ -28,7 +35,7 @@ defineExpose({ scroller })
 <template>
   <RecycleScroller
     ref="scroller"
-    class="scroller overflow-auto custom-scroll -mr-3 pr-2"
+    class="scroller overflow-auto custom-scroll"
     :items="results"
     :item-size="90"
     style="height: 70vh"
@@ -41,6 +48,7 @@ defineExpose({ scroller })
     <template #default="{ item: result }">
       <ResultsCardListItem
         :result="result"
+        @click.prevent="onItemClick(result)"
       />
     </template>
 

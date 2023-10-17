@@ -1,5 +1,8 @@
 <script setup>
 import { computed } from 'vue';
+import { useMegaSenaStore } from '@/pinia/mega-sena';
+
+const megaSenaStore = useMegaSenaStore()
 
 const props = defineProps({
   number: {
@@ -9,10 +12,6 @@ const props = defineProps({
   relativeOccurrences: {
     type: Number,
     required: true
-  },
-  heatmap: {
-    type: Boolean,
-    default: false
   },
   smallStyle: {
     type: Boolean,
@@ -39,6 +38,7 @@ const classNames = computed(() => {
   return classes
 })
 
+const heatmap = computed(() => megaSenaStore.heatmap)
 const heatmapBg = computed(() => {
   const MAX_DARKNESS = 80
   const relativeOccurrences = props.relativeOccurrences
@@ -51,11 +51,11 @@ const heatmapBg = computed(() => {
     return `hsl(0, 55%, ${lightness}%)`
 })
 
-const bgIsDark = computed(() => props.heatmap && props.relativeOccurrences > 35)
+const bgIsDark = computed(() => heatmap.value && props.relativeOccurrences > 35)
 
 const textColor = computed(() => bgIsDark.value ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')
 
-const bgColor = computed(() => !props.heatmap
+const bgColor = computed(() => !heatmap.value
   ? 'rgb(255, 255, 255)'
   : heatmapBg.value
 )

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import StatsCardLateNumbers from './StatsCardLateNumbers.vue';
-import StatsCardOddEvenOccurrences from './StatsCardOddEvenOccurrences.vue';
+import StatsCardOddEven from './StatsCardOddEven.vue';
 
 const loading = ref(false)
 </script>
@@ -20,13 +20,14 @@ const loading = ref(false)
     </template>
 
     <template #body>
-      <AppLoading :value="loading" />
-
-      <StatsCardLateNumbers
-        v-model:loading="loading"
-        class="mb-5"
-      />
-      <StatsCardOddEvenOccurrences v-model:loading="loading" />
+      <div class="h-[70vh] overflow-auto custom-scroll">
+        <AppLoading :value="loading" />
+        <StatsCardLateNumbers
+          v-model:loading="loading"
+          class="mt-2 mb-5"
+        />
+        <StatsCardOddEven />
+      </div>
     </template>
   </AppCard>
 </template>

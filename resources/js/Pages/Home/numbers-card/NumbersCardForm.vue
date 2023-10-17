@@ -1,10 +1,12 @@
 <script setup>
-import { inject } from 'vue';
+import { inject, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { replaceState } from '@/utils/replace-state'
+import { useMegaSenaStore } from '@/pinia/mega-sena';
 
 import DatePicker from '@/components/DatePicker.vue'
 
+const megaSenaStore = useMegaSenaStore()
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
 defineProps({
@@ -14,7 +16,6 @@ defineProps({
   }
 })
 
-const { heatmap, updateHeatmap } = inject('heatmap')
 const { month, updateMonth } = inject('month')
 
 const onSortChange = (value) => {
@@ -26,6 +27,10 @@ const onSortChange = (value) => {
 const onMonthChange = (value) => {
   updateMonth(value)
   submit()
+}
+
+const onHeatmapChange = (value) => {
+  megaSenaStore.setHeatmap(value)
 }
 
 const submit = () => {
@@ -41,6 +46,7 @@ const submit = () => {
   })
 }
 
+const heatmap = computed(() => megaSenaStore.heatmap)
 </script>
 
 <template>
@@ -58,7 +64,7 @@ const submit = () => {
           <AppCheckbox
             :model-value="heatmap"
             label="Mapa de calor"
-            @update:model-value="updateHeatmap"
+            @update:model-value="onHeatmapChange"
           />
         </div>
       </div>

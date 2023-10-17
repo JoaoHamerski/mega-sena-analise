@@ -30,7 +30,7 @@ class StatsLateNumbersController extends Controller
     public function getNumbersByItsLastOccurrence(MegaSenaRequest $request)
     {
         $numbers = $this->getNumbersWithOccurrences($request);
-        $lastConcursoNumber = Game::latest()->first()->concurso;
+        $lastConcursoNumber = Game::orderBy('date', 'DESC')->first()->concurso;
 
         return $numbers->map(function ($number) use ($lastConcursoNumber) {
             $lastOccurrenceGame = Game::whereNumber($number['number'])

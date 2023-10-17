@@ -12,16 +12,20 @@ body,
 }
 
 
-.custom-scroll::-webkit-scrollbar {
-    @apply w-2;
-}
+.custom-scroll {
+    @apply -mr-3 pr-2;
 
-.custom-scroll::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    @apply rounded-lg;
-}
+    &::-webkit-scrollbar {
+        @apply w-2;
+    }
 
-.custom-scroll::-webkit-scrollbar-thumb {
-    @apply bg-blue-600 rounded-lg;
-}
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        @apply rounded-lg;
+    }
 
+    &::-webkit-scrollbar-thumb {
+        @apply bg-blue-600 rounded-lg;
+
+    }
+}

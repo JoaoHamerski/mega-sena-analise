@@ -1,6 +1,5 @@
 <script setup>
 import { formatDateTime } from '@/formatters/format-datetime';
-import { inject } from 'vue';
 
 import BallNumber from '../partials/BallNumber.vue';
 
@@ -12,8 +11,6 @@ defineProps({
 })
 
 const dataTipFor = (item) => `Concurso: ${item.game.concurso} - ${formatDateTime(item.game.date)}`
-
-const { heatmap } = inject('heatmap')
 </script>
 
 <template>
@@ -26,7 +23,6 @@ const { heatmap } = inject('heatmap')
       :key="item"
       :number="item.number"
       :relative-occurrences="item.relative_occurrences"
-      :heatmap="heatmap"
       class="tooltip tooltip-left"
       :data-tip="dataTipFor(item)"
       custom-style="border rounded border-slate-600 py-2"

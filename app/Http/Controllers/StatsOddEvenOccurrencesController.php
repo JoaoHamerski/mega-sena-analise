@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AppHelper;
 use App\Http\Requests\MegaSenaRequest;
 use App\Traits\MegaSenaNumbersTrait;
 
@@ -20,7 +21,7 @@ class StatsOddEvenOccurrencesController extends Controller
         $even = 0;
 
         $numbers->each(function ($item) use (&$odd, &$even) {
-            if ($item['number'] % 2 === 0) {
+            if (AppHelper::isEven($item['number'])) {
                 $even += $item['occurrences'];
             } else {
                 $odd += $item['occurrences'];
