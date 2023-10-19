@@ -19,9 +19,18 @@ const currentRoute = computed(() => {
           :class="{
             'text-primary': currentRoute === 'home.index'
           }"
-          :only="['numbers']"
         >
           INÍCIO
+        </Link>
+      </div>
+      <div>
+        <Link
+          :href="route('simulation.index')"
+          :class="{
+            'text-primary': currentRoute === 'simulation.index'
+          }"
+        >
+          SIMULAÇÃO
         </Link>
       </div>
     </div>

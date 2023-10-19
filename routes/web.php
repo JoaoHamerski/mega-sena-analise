@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MegaSenaController;
+use App\Http\Controllers\SimulationController;
 use App\Http\Controllers\StatsLateNumbersController;
 use App\Http\Controllers\StatsOddEvenOccurrencesController;
 use App\Http\Controllers\StatsOddEvenResultsController;
@@ -26,4 +27,8 @@ Route::name('stats.')->prefix('stats')->group(function () {
     Route::get('late-numbers', StatsLateNumbersController::class)->name('late-numbers');
     Route::get('odd-even-occurrences', StatsOddEvenOccurrencesController::class)->name('odd-even-occurrences');
     Route::get('odd-even-results', StatsOddEvenResultsController::class)->name('odd-even-results');
+});
+
+Route::name('simulation.')->group(function () {
+    Route::get('/simulation', SimulationController::class)->name('index');
 });

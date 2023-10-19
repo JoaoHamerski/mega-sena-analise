@@ -25,16 +25,6 @@ trait MegaSenaNumbersTrait
         return $numbers;
     }
 
-    public function cacheResults($results)
-    {
-        Cache::put('mega-sena:results', $results);
-    }
-
-    public function cacheNumbers($numbers)
-    {
-        Cache::put('mega-sena:numbers', $numbers);
-    }
-
     public function getRelativeOccurrence($occurrences, $metadata)
     {
         $max = $metadata['max'];

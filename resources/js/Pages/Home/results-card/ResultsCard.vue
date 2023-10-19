@@ -1,16 +1,23 @@
 <script setup>
-import { ref, watch, inject } from 'vue';
+import { ref, watch, inject, onMounted } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 import ResultsCardList from './ResultsCardList.vue'
 
+defineProps({
+  results: {
+    type: Array,
+    default: () => []
+  }
+})
+
 const resultsCardList = ref(null)
 
 const page = ref(1)
-const results = ref([])
 const hasMoreData = ref(true)
-
 const { month } = inject('month')
+
+const items = ref([])
 
 const onFetchDataSuccess = ({ props }) => {
   if (!props.results.next_page_url) {
@@ -21,11 +28,11 @@ const onFetchDataSuccess = ({ props }) => {
     resetResults()
   }
 
-  results.value = [...results.value, ...props.results.data]
+  items.value = [...items.value, ...props.results.data]
 }
 
 const resetResults = () => {
-  results.value = []
+  items.value = []
   resultsCardList.value.scroller.scrollToItem(0)
 }
 
@@ -37,14 +44,14 @@ const fetchData = () => {
   })
 }
 
-router.on('finish', () => {
-  if (page.value === 1) {
-    fetchData()
-  }
-})
-
 watch(month, () => {
   page.value = 1
+
+  fetchData()
+})
+
+onMounted(() => {
+  fetchData()
 })
 </script>
 
@@ -65,7 +72,7 @@ watch(month, () => {
         <ResultsCardList
           ref="resultsCardList"
           :has-more-data="hasMoreData"
-          :results="results"
+          :results="items"
           @results:load-more="fetchData"
         />
       </div>

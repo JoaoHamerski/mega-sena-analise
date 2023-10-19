@@ -15,15 +15,12 @@ class MegaSenaController extends Controller
 
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbersCallback = fn () => $this->getNumbersWithOccurrences($request);
-        $resultsCallback = fn () => $this->getResults($request);
+        $numbers = $this->getNumbersWithOccurrences($request);
+        $results = $this->getResults($request);
 
         return Inertia::render(
             'Home/TheHome',
-            [
-                'numbers' => Inertia::lazy($numbersCallback),
-                'results' =>  Inertia::lazy($resultsCallback),
-            ]
+            compact('numbers', 'results')
         );
     }
 }

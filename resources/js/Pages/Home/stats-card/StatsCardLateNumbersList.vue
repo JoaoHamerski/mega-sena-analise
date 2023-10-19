@@ -1,6 +1,4 @@
 <script setup>
-import { formatDateTime } from '@/formatters/format-datetime';
-
 import BallNumber from '../partials/BallNumber.vue';
 
 defineProps({
