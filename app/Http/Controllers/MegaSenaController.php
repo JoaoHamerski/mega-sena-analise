@@ -15,8 +15,8 @@ class MegaSenaController extends Controller
 
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbers = $this->getNumbersWithOccurrences($request);
-        $results = $this->getResults($request);
+        $numbers = Inertia::lazy(fn () => $this->getNumbersWithOccurrences($request));
+        $results = Inertia::lazy(fn () => $this->getResults($request));
 
         return Inertia::render(
             'Home/TheHome',

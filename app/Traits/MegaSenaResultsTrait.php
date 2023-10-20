@@ -13,14 +13,14 @@ trait MegaSenaResultsTrait
     {
         $numbers = Cache::get('mega-sena:numbers');
 
-        $games = $this->queryGames($request)
+        $paginatedGames = $this->queryGames($request)
             ->orderBy('date', 'desc')
             ->paginate()
             ->toArray();
 
-        $games =  $this->appendOccurrencesToGameNumbers($games, $numbers);
+        $paginatedGames =  $this->appendOccurrencesToGameNumbers($paginatedGames, $numbers);
 
-        return $games;
+        return $paginatedGames;
     }
 
     public function appendOccurrencesToGameNumbers(array $games, $numbers)

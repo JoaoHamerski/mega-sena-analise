@@ -1,6 +1,5 @@
 <script setup>
 import { inject, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
 import { replaceState } from '@/utils/replace-state'
 import { useMegaSenaStore } from '@/pinia/mega-sena';
 
@@ -24,26 +23,8 @@ const onSortChange = (value) => {
   emit('update:sort', value)
 }
 
-const onMonthChange = (value) => {
-  updateMonth(value)
-  submit()
-}
-
 const onHeatmapChange = (value) => {
   megaSenaStore.setHeatmap(value)
-}
-
-const submit = () => {
-  const params = {
-    ...route().params,
-    ...{ month: month.value }
-  }
-
-  router.reload({
-    data: params,
-    preserveState: true,
-    only: ['numbers']
-  })
 }
 
 const heatmap = computed(() => megaSenaStore.heatmap)
@@ -73,7 +54,7 @@ const heatmap = computed(() => megaSenaStore.heatmap)
           :model-value="month"
           name="month"
           label="RESULTADOS À PARTIR DE:"
-          @update:model-value="onMonthChange"
+          @update:model-value="updateMonth"
         />
       </div>
     </div>
