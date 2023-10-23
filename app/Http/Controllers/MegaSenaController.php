@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MegaSenaRequest;
 use App\Traits\MegaSenaNumbersTrait;
-use App\Traits\MegaSenaQueryTrait;
 use App\Traits\MegaSenaResultsTrait;
 use Inertia\Inertia;
 

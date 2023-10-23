@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 
 trait MegaSenaResultsTrait
 {
+    use MegaSenaQueryTrait;
+
     public function getResults(MegaSenaRequest $request)
     {
         $numbers = Cache::get('mega-sena:numbers');

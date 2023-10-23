@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Arr;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,6 +19,18 @@ class Game extends Model
     protected $casts = [
         'date' => 'date'
     ];
+
+    protected $appends = ['numbers'];
+
+    public function numbers(): Attribute
+    {
+        $ballNumbers = Arr::only($this->getAttributes(), $this->ballColumns);
+        $numbers = array_values($ballNumbers);
+
+        return Attribute::make(
+            get: fn () => $numbers
+        );
+    }
 
     public function ballColumns(): Attribute
     {

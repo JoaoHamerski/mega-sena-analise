@@ -1,8 +1,15 @@
 <script setup>
+import { ref } from 'vue';
+
 import StatsCardOddEvenOccurrences from './StatsCardOddEvenOccurrences.vue';
 import StatsCardOddEvenResults from './StatsCardOddEvenResults.vue';
 
-defineEmits(['update:loading'])
+
+const loading = ref(false)
+
+const onLoadingUpdate = (value) => {
+  loading.value = value
+}
 </script>
 
 <template>
@@ -11,8 +18,9 @@ defineEmits(['update:loading'])
       Pares e ímpares
     </template>
     <template #content>
-      <StatsCardOddEvenOccurrences @update:loading="$emit('update:loading', $event)" />
-      <StatsCardOddEvenResults @update:loading="$emit('update:loading', $event)" />
+      <AppLoading :value="loading" />
+      <StatsCardOddEvenOccurrences @update:loading="onLoadingUpdate" />
+      <StatsCardOddEvenResults @update:loading="onLoadingUpdate" />
     </template>
   </AppContainer>
 </template>

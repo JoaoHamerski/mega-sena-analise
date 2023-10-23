@@ -8,13 +8,14 @@ import StatsCardLateNumbersForm from './StatsCardLateNumbersForm.vue';
 
 const emit = defineEmits(['update:loading'])
 
+const loading = ref(false)
 const form = ref({interval: '60', sort: false})
 const data = ref({late_numbers: [], interval: ''})
 const originalData = ref({late_numbers: [], interval: ''})
 const { month } = inject('month')
 
 const fetchData = async () => {
-  emit('update:loading', true)
+  loading.value = true
 
   const { data: response } = await axios.get(route('stats.late-numbers'), {
     params: {
@@ -27,7 +28,7 @@ const fetchData = async () => {
 
   sortNumbers(form.value.sort)
 
-  emit('update:loading', false)
+  loading.value = false
 }
 
 const onSortChange = (value) => {
@@ -55,6 +56,7 @@ watch(month, () => { fetchData() })
       Atrasados há mais de {{ data.interval || 'X' }} dias
     </template>
     <template #content>
+      <AppLoading :value="loading" />
       <StatsCardLateNumbersForm
         v-model:interval="form.interval"
         @update:sort="onSortChange"

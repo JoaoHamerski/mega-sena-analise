@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3';
 import NumbersCard from './numbers-card/NumbersCard.vue'
 import ResultsCard from './results-card/ResultsCard.vue'
 import StatsCard from './stats-card/StatsCard.vue'
+import axios from '@/plugins/axios';
 
 defineProps({
   numbers: {
@@ -20,6 +21,7 @@ defineProps({
 const month = ref(route().params.month ?? undefined)
 const hasMoreResults = ref(true)
 const resultsItems = ref([])
+const numbersItems = ref([])
 
 const params = computed(() => ({
   ...route().params,
@@ -38,8 +40,18 @@ const onFetchResultsSuccess = ({ props }) => {
   resultsItems.value = [...resultsItems.value, ...props.results.data]
 }
 
+const onFetchNumbersSuccess = ({ props }) => {
+  numbersItems.value = props.numbers
+
+  // axios.get(route('stats.sequential-numbers'))
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
+}
+
 const onFetchSuccess = (data) => {
   onFetchResultsSuccess(data)
+  onFetchNumbersSuccess(data)
 }
 
 const onLoadMoreResults = () => {
@@ -59,6 +71,7 @@ const refreshData = () => {
     preserveState: true,
     onSuccess: onFetchSuccess
   })
+
 }
 
 const updateMonth = (value) => {
@@ -76,7 +89,7 @@ onMounted(() => {
 <template>
   <div class="py-10 px-10">
     <div class="grid grid-cols-[1.7fr,.9fr,1.1fr] gap-x-5 mb-5">
-      <NumbersCard :numbers="numbers" />
+      <NumbersCard :numbers="numbersItems" />
       <ResultsCard
         :results="resultsItems"
         :has-more-data="hasMoreResults"
