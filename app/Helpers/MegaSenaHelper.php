@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Game;
+use Arr;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Shuchkin\SimpleXLSX;
@@ -18,21 +19,33 @@ class MegaSenaHelper
                 return;
             }
 
+            $sortedBalls = static::getSortedBalls($item, ['concurso', 'data']);
+
             $games->push(
                 Game::create([
                     'concurso' => $item['concurso'],
                     'date' => Carbon::createFromFormat('d/m/Y', $item['data'])->format('Y-m-d'),
-                    'bola_1' => $item['bola_1'],
-                    'bola_2' => $item['bola_2'],
-                    'bola_3' => $item['bola_3'],
-                    'bola_4' => $item['bola_4'],
-                    'bola_5' => $item['bola_5'],
-                    'bola_6' => $item['bola_6'],
+                    'bola_1' => $sortedBalls[0],
+                    'bola_2' => $sortedBalls[1],
+                    'bola_3' => $sortedBalls[2],
+                    'bola_4' => $sortedBalls[3],
+                    'bola_5' => $sortedBalls[4],
+                    'bola_6' => $sortedBalls[5],
                 ])
             );
         });
 
         return $games;
+    }
+
+    public static function getSortedBalls($item, array $except = [])
+    {
+        $balls = Arr::except($item, $except);
+        $balls = array_values($balls);
+
+        sort($balls);
+
+        return $balls;
     }
 
     public static function getDataFromAsLoteriasFile(string $path)
