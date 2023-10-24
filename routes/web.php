@@ -8,6 +8,7 @@ use App\Http\Controllers\StatsLateNumbersController;
 use App\Http\Controllers\StatsOddEvenOccurrencesController;
 use App\Http\Controllers\StatsOddEvenResultsController;
 use App\Http\Controllers\StatsSequentialNumberResults;
+use App\Http\Controllers\StatsWeightedAvgController;
 
 /*
 |--------------------------------------------------------------------------

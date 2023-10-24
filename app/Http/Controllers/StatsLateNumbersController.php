@@ -6,6 +6,7 @@ use App\Http\Requests\MegaSenaRequest;
 use App\Models\Game;
 use App\Traits\MegaSenaNumbersTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class StatsLateNumbersController extends Controller
@@ -29,7 +30,7 @@ class StatsLateNumbersController extends Controller
 
     public function getNumbersByItsLastOccurrence(MegaSenaRequest $request)
     {
-        $numbers = $this->getNumbersWithOccurrences($request);
+        $numbers = Cache::get('mega-sena:numbers');
         $lastConcursoNumber = Game::orderBy('date', 'DESC')->first()->concurso;
 
         return $numbers->map(function ($number) use ($lastConcursoNumber) {

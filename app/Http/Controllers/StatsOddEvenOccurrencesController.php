@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\AppHelper;
 use App\Http\Requests\MegaSenaRequest;
 use App\Traits\MegaSenaNumbersTrait;
+use Illuminate\Support\Facades\Cache;
 
 class StatsOddEvenOccurrencesController extends Controller
 {
@@ -15,7 +16,7 @@ class StatsOddEvenOccurrencesController extends Controller
      */
     public function __invoke(MegaSenaRequest $request)
     {
-        $numbers = $this->getNumbersWithOccurrences($request);
+        $numbers = Cache::get('mega-sena:numbers');
 
         $odd = 0;
         $even = 0;

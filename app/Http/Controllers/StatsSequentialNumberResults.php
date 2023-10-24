@@ -19,7 +19,7 @@ class StatsSequentialNumberResults extends Controller
             ->orderBy('date', 'DESC')
             ->get();
 
-        $sequentialResults = Arr::mapWithKeys(range(1, 60), fn ($num) => ["num_{$num}" => 0]);
+        $sequentialResults = Arr::mapWithKeys(range(1, 60), fn ($num) => [$num => 0]);
 
         foreach ($results as $index => $result) {
             $this->countNumberInNextResult($results, $index, $sequentialResults);
@@ -39,9 +39,11 @@ class StatsSequentialNumberResults extends Controller
             return;
         }
 
+        $nextResult = $nextResult->toArray();
+
         foreach ($resultNumbers as $num) {
-            if (in_array($num, $nextResult->toArray())) {
-                $sequentialResults["num_{$num}"]++;
+            if (in_array($num, $nextResult)) {
+                $sequentialResults[$num]++;
             }
         }
     }
