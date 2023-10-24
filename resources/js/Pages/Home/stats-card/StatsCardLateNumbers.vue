@@ -6,8 +6,6 @@ import { sortBy } from 'lodash-es'
 import StatsCardLateNumbersList from './StatsCardLateNumbersList.vue';
 import StatsCardLateNumbersForm from './StatsCardLateNumbersForm.vue';
 
-const emit = defineEmits(['update:loading'])
-
 const loading = ref(false)
 const form = ref({interval: '60', sort: false})
 const data = ref({late_numbers: [], interval: ''})

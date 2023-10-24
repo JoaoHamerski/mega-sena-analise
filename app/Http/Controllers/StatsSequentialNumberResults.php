@@ -39,10 +39,10 @@ class StatsSequentialNumberResults extends Controller
             return;
         }
 
-        $nextResult = $nextResult->toArray();
+        $nextResultNumbers = $nextResult->numbers;
 
         foreach ($resultNumbers as $num) {
-            if (in_array($num, $nextResult)) {
+            if (in_array($num, $nextResultNumbers)) {
                 $sequentialResults[$num]++;
             }
         }

@@ -1,6 +1,6 @@
 <script setup>
 
-const emit =defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
 defineProps({
   modelValue: {
@@ -8,15 +8,15 @@ defineProps({
     default: false
   },
   label: {
-      type: String,
-      default: ''
+    type: String,
+    default: ''
   }
 })
 
 const onChange = (event) => {
   emit('update:modelValue', event.target.checked)
 }
-</script> 
+</script>
 
 <template>
   <label class="cursor-pointer flex">

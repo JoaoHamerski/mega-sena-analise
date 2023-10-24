@@ -22,6 +22,12 @@ defineProps({
       <div class="text-grey">
         {{ number.occurrences }}
       </div>
+      <div
+        v-if="number.sequential_occurrences"
+        class="text-xs absolute bottom-0 right-0 p-0.5 rounded-br"
+      >
+        {{ number.sequential_occurrences }}
+      </div>
     </template>
   </BallNumber>
 </template>

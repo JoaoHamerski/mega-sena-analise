@@ -12,13 +12,19 @@ const props = defineProps({
   }
 });
 
-const sort = ref(route().params.sort === 'true')
+const sort = ref(route().params.sort)
 
-const computedNumbers = computed(
-  () => sort.value
-    ? sortBy(props.numbers, 'occurrences').reverse()
-    : props.numbers
-)
+const computedNumbers = computed(() => {
+  if (sort.value === 'occurrences') {
+    return sortBy(props.numbers, 'occurrences').reverse()
+  }
+
+  if (sort.value === 'sequential' && !!props.numbers[0]?.sequential_occurrences) {
+    return sortBy(props.numbers, 'sequential_occurrences').reverse()
+  }
+
+  return props.numbers
+})
 </script>
 
 <template>

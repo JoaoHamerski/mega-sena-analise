@@ -40,13 +40,23 @@ const onFetchResultsSuccess = ({ props }) => {
   resultsItems.value = [...resultsItems.value, ...props.results.data]
 }
 
+const fetchSequentialNumbers = () => {
+  const path = route('stats.sequential-numbers')
+  const params = { month: month.value }
+
+  axios.get(path, { params })
+    .then(({data}) => {
+      numbersItems.value = numbersItems.value.map((item) => ({
+        ...item,
+        sequential_occurrences: data[item['number']]
+      }))
+  })
+}
+
 const onFetchNumbersSuccess = ({ props }) => {
   numbersItems.value = props.numbers
 
-  // axios.get(route('stats.sequential-numbers'))
-  //   .then((data) => {
-  //     console.log(data)
-  //   })
+  fetchSequentialNumbers()
 }
 
 const onFetchSuccess = (data) => {
@@ -71,7 +81,6 @@ const refreshData = () => {
     preserveState: true,
     onSuccess: onFetchSuccess
   })
-
 }
 
 const updateMonth = (value) => {

@@ -5,22 +5,29 @@ import { useMegaSenaStore } from '@/pinia/mega-sena';
 
 import DatePicker from '@/components/DatePicker.vue'
 
-const megaSenaStore = useMegaSenaStore()
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
 defineProps({
   sort: {
-    type: Boolean,
+    type: [String, Boolean],
     required: true
   }
 })
 
+const SORT_ENUM = {
+  sequential: 'sequential',
+  occurrences: 'occurrences'
+}
+
+const megaSenaStore = useMegaSenaStore()
 const { month, updateMonth } = inject('month')
 
-const onSortChange = (value) => {
-  replaceState({sort: value})
+const onSortChange = (checked, value) => {
+  const emittedValue = checked ? value : false
 
-  emit('update:sort', value)
+  replaceState({sort: emittedValue})
+
+  emit('update:sort', emittedValue)
 }
 
 const onHeatmapChange = (value) => {
@@ -36,9 +43,16 @@ const heatmap = computed(() => megaSenaStore.heatmap)
       <div class="self-center mr-2">
         <div class="mb-2">
           <AppCheckbox
-            :model-value="sort"
+            :model-value="SORT_ENUM.occurrences === sort"
             label="Ordenar por ocorrências"
-            @update:model-value="onSortChange"
+            @update:model-value="e => onSortChange(e, SORT_ENUM.occurrences)"
+          />
+        </div>
+        <div class="mb-2">
+          <AppCheckbox
+            :model-value="SORT_ENUM.sequential === sort"
+            label="Ordenar por ocorrências em sequência"
+            @update:model-value="e => onSortChange(e, SORT_ENUM.sequential)"
           />
         </div>
         <div>
