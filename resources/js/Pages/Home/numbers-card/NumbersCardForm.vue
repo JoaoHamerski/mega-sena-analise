@@ -8,10 +8,7 @@ import DatePicker from '@/components/DatePicker.vue'
 const emit = defineEmits(['update:heatmap', 'update:sort'])
 
 defineProps({
-  sort: {
-    type: [String, Boolean],
-    required: true
-  }
+  sort: undefined
 })
 
 const SORT_ENUM = {

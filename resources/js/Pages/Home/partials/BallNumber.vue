@@ -105,5 +105,9 @@ const iconClassNames = computed(() => style.value.icon)
       />
     </Transition>
     <slot v-bind="{textColorClass, bgColor, number}" />
+    <slot
+      v-if="$slots['append']"
+      name="append"
+    />
   </span>
 </template>

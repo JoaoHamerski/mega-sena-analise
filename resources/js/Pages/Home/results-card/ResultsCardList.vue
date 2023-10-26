@@ -39,7 +39,7 @@ defineExpose({ scroller })
     ref="scroller"
     class="scroller overflow-auto custom-scroll mr-1 pr-1"
     :items="results"
-    :item-size="100"
+    :item-size="105"
     style="height: 70vh"
     list-tag="ul"
     item-tag="li"
