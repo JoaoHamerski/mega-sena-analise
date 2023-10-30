@@ -13,14 +13,14 @@ class SimulateMegaSenaGames extends Command
      *
      * @var string
      */
-    protected $signature = 'app:simulate-mega-sena-games';
+    protected $signature = 'mega-sena:simulate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Simulate a mega sena competition.';
+    protected $description = 'Simula algo.';
 
     /**
      * Execute the console command.

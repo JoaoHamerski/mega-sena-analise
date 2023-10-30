@@ -16,7 +16,7 @@ class UpdateMegaSenaGames extends Command implements MegaSenaFileHandleInterface
      *
      * @var string
      */
-    protected $signature = 'app:update-mega-sena-games';
+    protected $signature = 'mega-sena:update';
 
     /**
      * The console command description.
