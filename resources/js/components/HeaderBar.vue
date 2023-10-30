@@ -5,9 +5,7 @@ import { useAppStore } from '@/pinia/app';
 
 const app = useAppStore()
 
-const currentRoute = computed(() => {
-  return app.route.current()
-})
+const currentRoute = computed(() => app.route.current())
 </script>
 
 <template>
@@ -21,16 +19,6 @@ const currentRoute = computed(() => {
           }"
         >
           INÍCIO
-        </Link>
-      </div>
-      <div>
-        <Link
-          :href="route('simulation.index')"
-          :class="{
-            'text-primary': currentRoute === 'simulation.index'
-          }"
-        >
-          SIMULAÇÃO
         </Link>
       </div>
     </div>

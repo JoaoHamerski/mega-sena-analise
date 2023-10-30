@@ -79,7 +79,7 @@ class UpdateMegaSenaGames extends Command implements MegaSenaFileHandleInterface
     public function storeFile($content): string
     {
         $this->info('Armazenando arquivo...');
-        $filepath = 'games/all-games.xlsx';
+        $filepath = 'games/games.xlsx';
 
         Storage::put($filepath, $content);
 

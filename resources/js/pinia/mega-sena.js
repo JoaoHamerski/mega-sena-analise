@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 export const useMegaSenaStore = defineStore('mega-sena', {
     state: () => ({
       selectedGame: null,
-      heatmap: route().params.heatmap == 'true',
+      heatmap: route().params.heatmap === 'true',
     }),
     getters: {
       selectedGameNumbers () {

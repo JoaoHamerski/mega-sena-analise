@@ -7,7 +7,9 @@ const SIZES = {
   md: 'input-md',
   lg: 'input-lg'
 }
+
 const emit = defineEmits(['update:modelValue'])
+
 const props = defineProps({
   modelValue: {
     type: [String, Number],

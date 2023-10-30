@@ -21,9 +21,7 @@ const usePlugins = (app, inertiaPlugin) => {
     .use(autoAnimatePlugin)
 }
 
-const title = (title) => title
-  ? `${title} - Mega Sena Análise`
-  : "Mega Sena Análise"
+const title = () => 'Mega Sena'
 
 const setup = ({el, App, props, plugin}) => {
   const app = createApp(App, props)
@@ -38,6 +36,6 @@ createInertiaApp({
   resolve: resolveComponent,
   setup,
   progress: {
-      color: '#006aff',
+    color: '#006aff',
   },
 });
