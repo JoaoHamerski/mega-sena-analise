@@ -4,12 +4,12 @@ namespace App\Console\Commands;
 
 use App\Helpers\MegaSenaHelper;
 use App\Interfaces\MegaSenaFileFetchInterface;
-use App\Interfaces\MegaSenaHandleFileInterface;
+use App\Interfaces\MegaSenaFileHandleInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateMegaSenaGames extends Command implements MegaSenaHandleFileInterface, MegaSenaFileFetchInterface
+class UpdateMegaSenaGames extends Command implements MegaSenaFileHandleInterface, MegaSenaFileFetchInterface
 {
     /**
      * The name and signature of the console command.
@@ -23,7 +23,7 @@ class UpdateMegaSenaGames extends Command implements MegaSenaHandleFileInterface
      *
      * @var string
      */
-    protected $description = 'Update mega sena games from HTTP source.';
+    protected $description = 'Atualiza os jogos da mega sena de uma origem HTTP.';
 
     /**
      * Execute the console command.
