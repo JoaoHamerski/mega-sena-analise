@@ -1,7 +1,8 @@
 # mega-sena-analise
 Aplicação simples para ajudar a observar estatisticamente os resultados da mega-sena e montar uma estratégia de jogo.  
 
-![preview](https://github.com/JoaoHamerski/mega-sena-analise/assets/32890601/8122ce89-1f9c-43be-abe3-8958b99d5779)
+![preview](https://github.com/JoaoHamerski/mega-sena-analise/assets/32890601/bd573a44-9d9a-4e5b-a1c3-c58cd20eb763)
+
 
 ## Atualize os jogos
 Use o comando `php artisan mega-sena:update` para verificar se há novos jogos, e se houver, inseri-los no banco de dados.
