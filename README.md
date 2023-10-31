@@ -60,10 +60,10 @@ Use o comando `php artisan mega-sena:update` para verificar se há novos jogos, 
   8. Inicie o servidor npm e php.
   ```
   npm run dev
+  ```
+  ```
+  php artisan ser
+  ```
+  
+  9. Acesse a aplicação na porta especificada pelo comando `php artisan ser`, geralmente `localhost:8000`.
 </details>
-```
-```
-php artisan ser
-```
-
-9. Acesse a aplicação na porta especificada pelo comando `php artisan ser`, geralmente `localhost:8000`.
