@@ -3,6 +3,10 @@ Aplicação simples para ajudar a observar estatisticamente os resultados da meg
 
 ![preview](https://github.com/JoaoHamerski/mega-sena-analise/assets/32890601/bd573a44-9d9a-4e5b-a1c3-c58cd20eb763)
 
+## Requisitos
+- PHP 8.1
+- Dependencia PHP: bcmath, SimpleXMl
+- Node e NPM
 
 ## Atualize os jogos
 Use o comando `php artisan mega-sena:update` para verificar se há novos jogos, e se houver, inseri-los no banco de dados.
