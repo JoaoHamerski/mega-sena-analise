@@ -15,7 +15,8 @@ Use o comando `php artisan mega-sena:update` para verificar se há novos jogos, 
 <details>
   <summary>
   Ver setup da aplicação  
-  </summary>
+  </summary>   
+  
   
   1. Clone o repositório  
   ```
