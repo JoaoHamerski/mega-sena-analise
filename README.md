@@ -5,7 +5,7 @@ Aplicação simples para ajudar a observar estatisticamente os resultados da meg
 
 ## Requisitos
 - PHP 8.1
-- Dependencia PHP: bcmath, SimpleXML e talvez outras? Descubra...
+- Módulos PHP: bcmath, SimpleXML e talvez outros...
 - Composer
 - Node e NPM
 
