@@ -1,5 +1,5 @@
 # mega-sena-analise
-Aplicação simples para ajudar a observar estatisticamente os resultados da mega-sena e montar uma estratégia de jogo.  
+Aplicação simples para ajudar a observar estatisticamente os resultados da Mega-Sena
 
 ![preview](https://github.com/JoaoHamerski/mega-sena-analise/assets/32890601/bd573a44-9d9a-4e5b-a1c3-c58cd20eb763)
 
