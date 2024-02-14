@@ -1,0 +1,11 @@
+@import 'tailwind.css';
+
+
+@layer base {
+    :root,
+    html,
+    body,
+    #app {
+        @apply bg-base-300 h-full
+    }
+}
