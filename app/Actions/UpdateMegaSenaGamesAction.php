@@ -64,7 +64,7 @@ class UpdateMegaSenaGamesAction
     public static function insertResults(Collection $results): Collection
     {
         return $results->map(
-            fn($game) => static::firstOrCreateGame($game)
+            fn ($game) => static::firstOrCreateGame($game)
         );
     }
 
