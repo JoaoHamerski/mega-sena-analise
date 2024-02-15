@@ -14,5 +14,13 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  }
+  },
+  rules: {
+    'no-duplicate-imports': ['warn'],
+    'vue/padding-line-between-blocks': ['error'],
+    'vue/html-self-closing': [
+      'error',
+      { html: { component: 'always', void: 'always' } },
+    ],
+  },
 }
