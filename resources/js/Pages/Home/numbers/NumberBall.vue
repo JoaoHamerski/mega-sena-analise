@@ -12,6 +12,7 @@ const props = defineProps<LotteryNumber>()
 const appStore = useAppStore()
 
 const heatMapEnabled = computed(() => appStore.heatMap)
+const isSorted = computed(() => appStore.sortByOccurrences)
 
 const bgColor = computed(() => {
   const MAX_DARKNESS = 80
@@ -51,7 +52,10 @@ const style = computed(() => {
     :style="style"
   >
     <span class="font-bold text-lg">{{ number.number }}</span>
-    <span class="text-xs">
+    <span
+      class="text-xs"
+      :class="isSorted ? 'font-bold' : ''"
+    >
       {{ number.occurrences }}
     </span>
   </div>

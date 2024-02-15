@@ -29,8 +29,10 @@ const computedNumbers = computed(() => {
     <template #title> Resultados da MEGA SENA </template>
 
     <template #content>
-      <NumbersCardFormOptions class="mb-5" />
-      <NumbersCardGrid :numbers="computedNumbers" />
+      <div class="flex flex-col">
+        <NumbersCardFormOptions class="mb-5" />
+        <NumbersCardGrid :numbers="computedNumbers" />
+      </div>
     </template>
   </AppCard>
 </template>

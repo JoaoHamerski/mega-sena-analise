@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Number, Game } from '@/types'
 import MainLayout from '@/Components/layouts/MainLayout.vue'
 import NumbersCard from './numbers/NumbersCard.vue'
-import type { Number, Game } from '@/types'
+import GamesCard from './games/GamesCard.vue'
 
 type TheHomeProps = {
   numbers: Number[]
@@ -12,9 +13,8 @@ defineProps<TheHomeProps>()
 </script>
 
 <template>
-  <MainLayout>
-    <div class="w-1/2">
-      <NumbersCard :numbers="numbers" />
-    </div>
+  <MainLayout class="grid grid-cols-[2fr,1fr,1fr] gap-3 h-[90%]">
+    <NumbersCard :numbers="numbers" />
+    <GamesCard :games="games" />
   </MainLayout>
 </template>

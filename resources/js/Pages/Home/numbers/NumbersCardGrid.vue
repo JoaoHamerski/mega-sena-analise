@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Number } from '@/types'
-import LotteryNumber from './LotteryNumber.vue'
+import NumberBall from './NumberBall.vue'
 
 type NumbersCardGrid = {
   numbers: Number[]
@@ -14,7 +14,7 @@ defineProps<NumbersCardGrid>()
     class="grid grid-cols-10 gap-1"
     v-auto-animate
   >
-    <LotteryNumber
+    <NumberBall
       v-for="number in numbers"
       :key="number.number"
       :number="number"
