@@ -1,5 +1,7 @@
 <?php
 
+use App\Actions\UpdateMegaSenaGamesAction;
+use App\Http\Controllers\MegaSenaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,6 +16,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home/TheHome');
-});
+Route::get('/', MegaSenaController::class);
