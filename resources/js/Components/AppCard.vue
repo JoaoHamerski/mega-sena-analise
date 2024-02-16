@@ -12,6 +12,9 @@ const COLORS_CLASSES_MAP = {
   },
   primary: {
     title: 'bg-primary text-primary-content'
+  },
+  secondary: {
+    title: 'bg-secondary text-secondary-content'
   }
 }
 
