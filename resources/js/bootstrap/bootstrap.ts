@@ -1,57 +1,64 @@
-import { App, Plugin } from "vue";
-import { ZiggyVue } from "../../../vendor/tightenco/ziggy/dist/vue.m";
+import { App, Plugin } from 'vue'
+import { ZiggyVue } from '../../../vendor/tightenco/ziggy/dist/vue.m'
 import { createPinia } from 'pinia'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default class Bootstrap {
-    protected app: App
+  protected app: App
 
-    constructor(app: App) {
-        this.app = app
-    }
+  constructor(app: App) {
+    this.app = app
+  }
 
-    mount(el: Element) {
-        this.app.mount(el)
-    }
+  mount(el: Element) {
+    this.app.mount(el)
+  }
 
-    addInertiaPlugin(plugin: Plugin) {
-        this.app.use(plugin)
+  addInertiaPlugin(plugin: Plugin) {
+    this.app.use(plugin)
 
-        return this
-    }
+    return this
+  }
 
-    addZiggy() {
-        this.app.use(ZiggyVue)
+  addZiggy() {
+    this.app.use(ZiggyVue)
 
-        return this
-    }
+    return this
+  }
 
-    addPinia() {
-        const pinia = createPinia()
+  addPinia() {
+    const pinia = createPinia()
 
-        this.app.use(pinia)
+    this.app.use(pinia)
 
-        return this
-    }
+    return this
+  }
 
-    addAutoAnimate() {
-        this.app.use(autoAnimatePlugin)
+  addAutoAnimate() {
+    this.app.use(autoAnimatePlugin)
 
-        return this
-    }
+    return this
+  }
 
-    addGlobalComponents() {
-        const components = import.meta.glob('../**/App*.vue', { eager: true })
+  addFontAwesome() {
+    this.app.component('FWIcon', FontAwesomeIcon)
 
-        Object.entries(components).forEach(([path, definition]: [string, any]) => {
-          const componentName = path
-            .split('/')
-            .pop()!
-            .replace(/\.\w+$/, '')
+    return this
+  }
 
-          this.app.component(componentName, definition.default)
-        })
+  addGlobalComponents() {
+    const components = import.meta.glob('../**/App*.vue', { eager: true })
 
-        return this
-      }
+    Object.entries(components).forEach(([path, definition]: [string, any]) => {
+      const componentName = path
+        .split('/')
+        .pop()!
+        .replace(/\.\w+$/, '')
+
+      this.app.component(componentName, definition.default)
+    })
+
+    return this
+  }
 }

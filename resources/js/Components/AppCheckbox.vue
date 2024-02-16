@@ -8,7 +8,7 @@ const modelValue = defineModel()
 
 <template>
   <div class="inline-block">
-    <label class="cursor-pointer flex items-center gap-3">
+    <label class="cursor-pointer flex w-fit items-center gap-3">
       <input
         type="checkbox"
         class="toggle toggle-primary"
@@ -16,7 +16,7 @@ const modelValue = defineModel()
       />
 
       <span
-        class="label-text"
+        class="label-text select-none"
         v-if="label"
       >
         {{ label }}

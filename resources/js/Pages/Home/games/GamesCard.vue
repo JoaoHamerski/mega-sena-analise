@@ -11,7 +11,13 @@ defineProps<GamesCardProps>()
 
 <template>
   <AppCard no-padding>
-    <template #title> Lista de concursos </template>
+    <template #title>
+      <FWIcon
+        :icon="['fas', 'list']"
+        fixed-width
+      />
+      Lista de concursos
+    </template>
 
     <template #content>
       <div class="overflow-auto relative h-[80vh]">

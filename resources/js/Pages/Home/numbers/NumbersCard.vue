@@ -26,7 +26,13 @@ const computedNumbers = computed(() => {
 
 <template>
   <AppCard color="success">
-    <template #title> Resultados da MEGA SENA </template>
+    <template #title>
+      <FWIcon
+        :icon="['fas', 'circle']"
+        fixed-width
+      />
+      Resultados da MEGA SENA
+    </template>
 
     <template #content>
       <div class="flex flex-col">

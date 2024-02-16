@@ -4,9 +4,13 @@ import MainLayout from '@/Components/layouts/MainLayout.vue'
 import NumbersCard from './numbers/NumbersCard.vue'
 import GamesCard from './games/GamesCard.vue'
 
+type Paginated<T> = {
+  data: T[]
+}
+
 type TheHomeProps = {
   numbers: Number[]
-  games: Game[]
+  games: Paginated<Game>
 }
 
 defineProps<TheHomeProps>()
@@ -15,6 +19,6 @@ defineProps<TheHomeProps>()
 <template>
   <MainLayout class="grid grid-cols-[2fr,1fr,1fr] gap-3 h-[90%]">
     <NumbersCard :numbers="numbers" />
-    <GamesCard :games="games" />
+    <GamesCard :games="games.data" />
   </MainLayout>
 </template>
