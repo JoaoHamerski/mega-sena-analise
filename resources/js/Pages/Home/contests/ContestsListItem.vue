@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Contest } from '@/types'
-import LotteryNumber from '../common/LotteryNumber.vue'
+import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 import { DateTime } from 'luxon'
 import { computed } from 'vue'
 
@@ -22,27 +22,27 @@ const formattedDate = computed(() => DateTime.fromISO(props.contest.data).toLoca
       <span class="text-xs text-neutral-600">{{ formattedDate }}</span>
     </div>
     <div class="flex justify-between">
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_01"
         type="compact"
       />
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_02"
         type="compact"
       />
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_03"
         type="compact"
       />
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_04"
         type="compact"
       />
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_05"
         type="compact"
       />
-      <LotteryNumber
+      <ContestNumber
         :number="contest.bola_06"
         type="compact"
       />

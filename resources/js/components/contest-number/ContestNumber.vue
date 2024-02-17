@@ -2,11 +2,11 @@
 import type { LateNumber, Number } from '@/types'
 import { useAppStore } from '@/store/app-store'
 import { type StyleValue, type Component, computed } from 'vue'
-import LotteryNumberNormal from './LotteryNumberNormal.vue'
-import LotteryNumberCompact from './LotteryNumberCompact.vue'
-import LotteryNumberExtended from './LotteryNumberExtended.vue'
+import ContestNumberNormal from './ContestNumberNormal.vue'
+import ContestNumberCompact from './ContestNumberCompact.vue'
+import ContestNumberExtended from './ContestNumberExtended.vue'
 
-type LotteryNumber = {
+type ContestNumber = {
   number: Number | LateNumber
   type?: 'normal' | 'compact' | 'extended'
 }
@@ -17,7 +17,7 @@ type ComponentAttrs = {
   wrapperClass: any
 }
 
-const props = withDefaults(defineProps<LotteryNumber>(), {
+const props = withDefaults(defineProps<ContestNumber>(), {
   type: 'normal'
 })
 
@@ -60,7 +60,7 @@ const style = computed<StyleValue>(() => {
 const component = computed<ComponentAttrs>(() => {
   if (props.type === 'extended') {
     return {
-      is: LotteryNumberExtended,
+      is: ContestNumberExtended,
       attrs: {
         lateNumber: props.number as LateNumber
       },
@@ -70,7 +70,7 @@ const component = computed<ComponentAttrs>(() => {
 
   if (props.type === 'compact') {
     return {
-      is: LotteryNumberCompact,
+      is: ContestNumberCompact,
       attrs: {
         number: props.number
       },
@@ -79,7 +79,7 @@ const component = computed<ComponentAttrs>(() => {
   }
 
   return {
-    is: LotteryNumberNormal,
+    is: ContestNumberNormal,
     attrs: {
       number: props.number,
       isSorted: isSorted.value

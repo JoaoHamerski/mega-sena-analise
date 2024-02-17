@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Number } from '@/types'
 
-type LotteryNumberCompactProps = {
+type ContestNumberCompactProps = {
   number: Number
 }
 
-defineProps<LotteryNumberCompactProps>()
+defineProps<ContestNumberCompactProps>()
 </script>
 
 <template>

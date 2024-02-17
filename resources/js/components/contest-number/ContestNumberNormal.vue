@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Number } from '@/types'
 
-type LotteryNumberNormalProps = {
+type ContestNumberNormalProps = {
   number: Number
   isSorted: boolean
 }
 
-defineProps<LotteryNumberNormalProps>()
+defineProps<ContestNumberNormalProps>()
 </script>
 
 <template>

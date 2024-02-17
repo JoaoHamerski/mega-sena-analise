@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\GetContestsAction;
 use App\Actions\GetNumbersAction;
-use App\Http\Resources\ContestResource;
-use App\Models\Contest;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { LateNumber } from '@/types'
-import LotteryNumber from '../common/LotteryNumber.vue'
+import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 
 type LateNumberGrid = {
   lateNumbers: LateNumber[]
@@ -14,7 +14,7 @@ defineProps<LateNumberGrid>()
     class="grid grid-cols-5 gap-1"
     v-auto-animate
   >
-    <LotteryNumber
+    <ContestNumber
       type="extended"
       v-for="number in lateNumbers"
       :number="number"
