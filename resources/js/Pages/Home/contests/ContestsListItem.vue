@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import type { Contest } from '@/types'
-import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 import { DateTime } from 'luxon'
 import { computed } from 'vue'
+
+import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 
 type ContestListItemProps = {
   contest: Contest
 }
 
+const NUMBER_LABELS = ['bola_01', 'bola_02', 'bola_03', 'bola_04', 'bola_05', 'bola_06'] as const
 const props = defineProps<ContestListItemProps>()
 
 const formattedDate = computed(() => DateTime.fromISO(props.contest.data).toLocaleString())
@@ -21,31 +23,17 @@ const formattedDate = computed(() => DateTime.fromISO(props.contest.data).toLoca
       <span class="font-bold text-sm">{{ contest.concurso }}</span>
       <span class="text-xs text-neutral-600">{{ formattedDate }}</span>
     </div>
+
     <div class="flex justify-between">
-      <ContestNumber
-        :number="contest.bola_01"
-        type="compact"
-      />
-      <ContestNumber
-        :number="contest.bola_02"
-        type="compact"
-      />
-      <ContestNumber
-        :number="contest.bola_03"
-        type="compact"
-      />
-      <ContestNumber
-        :number="contest.bola_04"
-        type="compact"
-      />
-      <ContestNumber
-        :number="contest.bola_05"
-        type="compact"
-      />
-      <ContestNumber
-        :number="contest.bola_06"
-        type="compact"
-      />
+      <template
+        v-for="label in NUMBER_LABELS"
+        :key="label"
+      >
+        <ContestNumber
+          :number="contest[label]"
+          type="compact"
+        />
+      </template>
     </div>
   </div>
 </template>
