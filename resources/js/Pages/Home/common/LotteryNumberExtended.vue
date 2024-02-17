@@ -8,5 +8,5 @@ defineProps<{
 
 <template>
   <div class="text-sm font-bold">{{ lateNumber.number }}</div>
-  <div class="text-xs">{{ lateNumber.late_by_games }} jogos</div>
+  <div class="text-xs">{{ lateNumber.late_by_contests }} jogos</div>
 </template>

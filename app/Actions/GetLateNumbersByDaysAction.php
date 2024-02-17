@@ -21,7 +21,7 @@ class GetLateNumbersByDaysAction
         $maxDate = now()->subDays($lateBy);
 
         $filteredLateNumbers = $lateNumbers->filter(
-            fn ($number) => $number['last_game']['data'] < $maxDate
+            fn ($number) => $number['last_contest']['data'] < $maxDate
         );
 
         return $filteredLateNumbers->values();

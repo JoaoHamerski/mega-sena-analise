@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\LateNumbersController;
+use App\Http\Controllers\GetContestsController;
+use App\Http\Controllers\GetLateNumbersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/late-numbers', LateNumbersController::class)->name('late-numbers');
+Route::name('api.')->group(function () {
+    Route::get('/contests', GetContestsController::class)->name('contests');
+    Route::get('/late-numbers', GetLateNumbersController::class)->name('late-numbers');
+});

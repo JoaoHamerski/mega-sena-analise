@@ -5,11 +5,11 @@ export type Number = {
 }
 
 export type LateNumber = Number & {
-  last_game: Game
-  late_by_games: number
+  last_contest: Contest
+  late_by_contests: number
 }
 
-export type Game = {
+export type Contest = {
   concurso: number
   data: string
   bola_01: Number
@@ -23,4 +23,8 @@ export type Game = {
 export type LateNumbersResponse = {
   data: LateNumber[]
   late_by_days: number
+}
+
+type Paginated<T> = {
+  data: T[]
 }

@@ -5,13 +5,13 @@ import LateNumberGrid from './LateNumbersGrid.vue'
 import sortBy from 'lodash-es/sortBy'
 
 const responseData = ref<LateNumbersResponse>({ data: [], late_by_days: 0 })
-const sortByGames = ref(false)
+const sortByContests = ref(false)
 
 const lateNumbers = computed<LateNumber[]>(() => {
   const lateNumbers = responseData.value.data
 
-  if (sortByGames.value) {
-    return sortBy(lateNumbers, 'late_by_games').reverse()
+  if (sortByContests.value) {
+    return sortBy(lateNumbers, 'late_by_contests').reverse()
   }
 
   return lateNumbers
@@ -20,7 +20,7 @@ const lateNumbers = computed<LateNumber[]>(() => {
 const lateByDays = computed<number | null>(() => responseData.value.late_by_days)
 
 const fetchLateNumbers = () => {
-  fetch(route('late-numbers'))
+  fetch(route('api.late-numbers'))
     .then((response) => response.json())
     .then((data: LateNumbersResponse) => {
       responseData.value = data
@@ -42,7 +42,7 @@ onMounted(() => {
     <template #content>
       <div class="flex flex-col gap-4">
         <AppCheckbox
-          v-model="sortByGames"
+          v-model="sortByContests"
           label="Ordenar por jogos"
         />
         <LateNumberGrid :late-numbers="lateNumbers" />

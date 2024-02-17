@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class GameResource extends JsonResource
+class ContestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

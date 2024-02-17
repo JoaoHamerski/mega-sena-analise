@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Models\Game;
+use App\Models\Contest;
 use Illuminate\Support\Arr;
 
 class GetOccurrencesAction
@@ -20,6 +20,6 @@ class GetOccurrencesAction
 
     public static function countNumberOccurrences(int $num): int
     {
-        return Game::query()->whereContainsNumber($num)->count();
+        return Contest::query()->whereContainsNumber($num)->count();
     }
 }

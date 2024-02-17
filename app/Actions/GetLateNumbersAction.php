@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Models\Game;
+use App\Models\Contest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
@@ -10,23 +10,23 @@ class GetLateNumbersAction
 {
     public static function execute(): Collection
     {
-        $totalGames = Game::count();
+        $totalContests = Contest::count();
         $numbers =  Cache::get('mega-sena:numbers', fn () => GetNumbersAction::execute());
 
-        return $numbers->map(function ($number) use ($totalGames) {
-            $game = static::getLastGameOfNumber($number['number']);
+        return $numbers->map(function ($number) use ($totalContests) {
+            $contest = static::getLastContestOfNumber($number['number']);
 
             return [
                 ...$number,
-                'last_game' => $game,
-                'late_by_games' => $totalGames - $game->concurso
+                'last_contest' => $contest,
+                'late_by_contests' => $totalContests - $contest->concurso
             ];
         });
     }
 
-    public static function getLastGameOfNumber(int $number): Game
+    public static function getLastContestOfNumber(int $number): Contest
     {
-        return Game::whereContainsNumber($number)
+        return Contest::whereContainsNumber($number)
             ->orderBy('data', 'desc')
             ->first();
     }

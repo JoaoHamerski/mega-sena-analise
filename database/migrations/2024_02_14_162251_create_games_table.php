@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('contests', function (Blueprint $table) {
             $table->id();
             $table->unsignedMediumInteger('concurso');
             $table->date('data');
@@ -29,6 +29,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('contests');
     }
 };

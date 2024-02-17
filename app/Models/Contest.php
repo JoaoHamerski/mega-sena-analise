@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
-class Game extends Model
+class Contest extends Model
 {
     use HasFactory;
 
@@ -27,7 +27,7 @@ class Game extends Model
     public function ballColumns(): Attribute
     {
         $columns = array_filter(
-            Schema::getColumnListing('games'),
+            Schema::getColumnListing('contests'),
             fn ($field) => Str::contains($field, 'bola_')
         );
 

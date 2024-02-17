@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LateNumbersController;
+use App\Http\Controllers\GetLateNumbersController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 

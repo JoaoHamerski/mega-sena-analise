@@ -2,15 +2,15 @@
 
 namespace App\Actions;
 
-use App\Models\Game;
+use App\Models\Contest;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Shuchkin\SimpleXLSX;
 
-class UpdateMegaSenaGamesAction
+class UpdateMegaSenaContestsAction
 {
-    protected static $GAMES_FILE_PATH = 'games/games.xlsx';
+    protected static $CONTESTS_FILE_PATH = 'contests/contest.xlsx';
     protected static $REMOTE_FILE_URL = 'https://asloterias.com.br/download_excel.php';
 
     public static function execute(): Collection
@@ -43,9 +43,9 @@ class UpdateMegaSenaGamesAction
 
     public static function storeFile($content): string
     {
-        Storage::put(static::$GAMES_FILE_PATH, $content);
+        Storage::put(static::$CONTESTS_FILE_PATH, $content);
 
-        return Storage::path(static::$GAMES_FILE_PATH);
+        return Storage::path(static::$CONTESTS_FILE_PATH);
     }
 
     public static function getResultsFromXlsx(string $filepath): Collection
@@ -64,22 +64,22 @@ class UpdateMegaSenaGamesAction
     public static function insertResults(Collection $results): Collection
     {
         return $results->map(
-            fn ($game) => static::firstOrCreateGame($game)
+            fn ($contest) => static::firstOrCreateContest($contest)
         );
     }
 
-    public static function firstOrCreateGame(array $game): Game
+    public static function firstOrCreateContest(array $contest): Contest
     {
-        return Game::query()->firstOrCreate(
-            ['concurso' => $game[0]],
+        return Contest::query()->firstOrCreate(
+            ['concurso' => $contest[0]],
             [
-                'data' => Carbon::createFromFormat('d/m/Y', $game[1]),
-                'bola_01' => $game[2],
-                'bola_02' => $game[3],
-                'bola_03' => $game[4],
-                'bola_04' => $game[5],
-                'bola_05' => $game[6],
-                'bola_06' => $game[7],
+                'data' => Carbon::createFromFormat('d/m/Y', $contest[1]),
+                'bola_01' => $contest[2],
+                'bola_02' => $contest[3],
+                'bola_03' => $contest[4],
+                'bola_04' => $contest[5],
+                'bola_05' => $contest[6],
+                'bola_06' => $contest[7],
             ]
         );
     }
