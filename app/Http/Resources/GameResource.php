@@ -17,8 +17,8 @@ class GameResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $numbers = Cache::has('numbers')
-            ? Cache::get('numbers')
+        $numbers = Cache::has('mega-sena:numbers')
+            ? Cache::get('mega-sena:numbers')
             : GetNumbersAction::execute();
 
         return [

@@ -1,9 +1,8 @@
 <?php
 
-use App\Actions\UpdateMegaSenaGamesAction;
+use App\Http\Controllers\LateNumbersController;
 use App\Http\Controllers\MegaSenaController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +15,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', MegaSenaController::class);
+Route::get('/', MegaSenaController::class)->name('home');

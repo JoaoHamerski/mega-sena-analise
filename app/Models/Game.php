@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,11 +36,13 @@ class Game extends Model
         );
     }
 
-    public function scopeWhereBall(Builder $query, int $ballNumber)
+    public function scopeWhereNumber(Builder $query, int $ballNumber): Builder
     {
         $whereClause = implode(' = ? or ', $this->ballColumns) . ' = ?';
         $whereClause = Str::replace('?', $ballNumber, $whereClause);
 
         $query->whereRaw("({$whereClause})");
+
+        return $query;
     }
 }

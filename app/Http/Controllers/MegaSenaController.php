@@ -15,7 +15,7 @@ class MegaSenaController extends Controller
         $numbers = GetNumbersAction::execute();
         $games = Game::query()->orderBy('concurso', 'desc')->paginate(10);
 
-        Cache::put('numbers', $numbers);
+        Cache::put('mega-sena:numbers', $numbers);
 
         return Inertia::render('Home/TheHome', [
             'numbers' => $numbers,

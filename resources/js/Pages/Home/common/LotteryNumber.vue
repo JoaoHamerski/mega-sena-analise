@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Number } from '@/types'
+import type { LateNumber, Number } from '@/types'
 import { useAppStore } from '@/store/app-store'
 import { type StyleValue, type Component, computed } from 'vue'
 import LotteryNumberNormal from './LotteryNumberNormal.vue'
@@ -7,11 +7,11 @@ import LotteryNumberCompact from './LotteryNumberCompact.vue'
 import LotteryNumberExtended from './LotteryNumberExtended.vue'
 
 type LotteryNumber = {
-  number: Number
+  number: Number | LateNumber
   type?: 'normal' | 'compact' | 'extended'
 }
 
-type ComponentIsProps = {
+type ComponentAttrs = {
   is: Component
   attrs: object
   wrapperClass: any
@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<LotteryNumber>(), {
 const appStore = useAppStore()
 
 const heatMapEnabled = computed(() => appStore.heatMap)
+
 const isSorted = computed(() => appStore.sortByOccurrences)
 
 const bgColor = computed(() => {
@@ -56,41 +57,43 @@ const style = computed<StyleValue>(() => {
   }
 })
 
-const component = computed<ComponentIsProps>(() => {
+const component = computed<ComponentAttrs>(() => {
   if (props.type === 'extended') {
     return {
       is: LotteryNumberExtended,
-      wrapperClass: '',
-      attrs: {}
+      attrs: {
+        lateNumber: props.number as LateNumber
+      },
+      wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16'
     }
   }
 
   if (props.type === 'compact') {
     return {
       is: LotteryNumberCompact,
-      wrapperClass: 'p-2 flex items-center justify-center border-2 rounded-full w-10 h-10 text-sm',
       attrs: {
         number: props.number
-      }
+      },
+      wrapperClass: 'p-2 flex items-center justify-center border-2 rounded-full w-10 h-10 text-sm'
     }
   }
 
   return {
     is: LotteryNumberNormal,
-    wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16',
     attrs: {
       number: props.number,
       isSorted: isSorted.value
-    }
+    },
+    wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16'
   }
 })
 </script>
 
 <template>
   <div
-    :style="style"
     :class="[classes, component.wrapperClass]"
     class="transition-colors"
+    :style="style"
   >
     <Component
       :is="component.is"

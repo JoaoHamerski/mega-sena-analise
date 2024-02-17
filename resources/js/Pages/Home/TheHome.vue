@@ -18,7 +18,7 @@ defineProps<TheHomeProps>()
 </script>
 
 <template>
-  <MainLayout class="grid grid-cols-[2fr,1fr,1fr] gap-3 h-[90%]">
+  <MainLayout class="grid grid-cols-[4fr,2fr,3fr] gap-3 h-[90%]">
     <NumbersCard :numbers="numbers" />
     <GamesCard :games="games.data" />
     <StatsCard />
