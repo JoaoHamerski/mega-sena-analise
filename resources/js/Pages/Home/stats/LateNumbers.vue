@@ -4,7 +4,7 @@ import { LateNumber, LateNumbersResponse } from '@/types'
 import LateNumberGrid from './LateNumbersGrid.vue'
 import sortBy from 'lodash-es/sortBy'
 
-const responseData = ref<LateNumbersResponse>({ data: [], interval: 0 })
+const responseData = ref<LateNumbersResponse>({ data: [], late_by_days: 0 })
 const sortByGames = ref(false)
 
 const lateNumbers = computed<LateNumber[]>(() => {
@@ -17,7 +17,7 @@ const lateNumbers = computed<LateNumber[]>(() => {
   return lateNumbers
 })
 
-const lateByDays = computed<number | null>(() => responseData.value.interval)
+const lateByDays = computed<number | null>(() => responseData.value.late_by_days)
 
 const fetchLateNumbers = () => {
   fetch(route('late-numbers'))

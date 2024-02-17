@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\LateNumbersController;
-use App\Http\Controllers\MegaSenaController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', MegaSenaController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');

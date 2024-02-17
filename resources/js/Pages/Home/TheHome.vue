@@ -21,6 +21,6 @@ defineProps<TheHomeProps>()
   <MainLayout class="grid grid-cols-[4fr,2fr,3fr] gap-3 h-[90%]">
     <NumbersCard :numbers="numbers" />
     <GamesCard :games="games.data" />
-    <StatsCard />
+    <!-- <StatsCard /> -->
   </MainLayout>
 </template>

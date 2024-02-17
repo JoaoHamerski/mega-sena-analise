@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\GetLateNumbersAction;
-use App\Actions\GetNumbersAction;
-use App\Models\Game;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Inertia\Inertia;
+use App\Actions\GetLateNumbersByDaysAction;
 
 class LateNumbersController extends Controller
 {
     public function __invoke()
     {
-        return GetLateNumbersAction::execute();
+        return GetLateNumbersByDaysAction::execute();
     }
 }

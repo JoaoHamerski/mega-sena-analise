@@ -20,6 +20,6 @@ class GetOccurrencesAction
 
     public static function countNumberOccurrences(int $num): int
     {
-        return Game::query()->whereNumber($num)->count();
+        return Game::query()->whereContainsNumber($num)->count();
     }
 }

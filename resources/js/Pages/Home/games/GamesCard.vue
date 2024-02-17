@@ -23,7 +23,7 @@ defineProps<GamesCardProps>()
       <div class="overflow-auto relative h-[80vh]">
         <GamesListItem
           v-for="game in games"
-          :key="game.id"
+          :key="game.concurso"
           :game="game"
         />
       </div>

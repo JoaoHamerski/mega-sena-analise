@@ -36,7 +36,7 @@ class Game extends Model
         );
     }
 
-    public function scopeWhereNumber(Builder $query, int $ballNumber): Builder
+    public function scopeWhereContainsNumber(Builder $query, int $ballNumber): Builder
     {
         $whereClause = implode(' = ? or ', $this->ballColumns) . ' = ?';
         $whereClause = Str::replace('?', $ballNumber, $whereClause);
