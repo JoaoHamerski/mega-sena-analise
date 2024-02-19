@@ -25,8 +25,6 @@ const appStore = useAppStore()
 
 const heatMapEnabled = computed(() => appStore.heatMap)
 
-const isSorted = computed(() => appStore.sortByOccurrences)
-
 const bgColor = computed(() => {
   const MAX_DARKNESS = 80
   const relativeOccurrence = props.number.relative_occurrence
@@ -82,7 +80,7 @@ const component = computed<ComponentAttrs>(() => {
     is: ContestNumberNormal,
     attrs: {
       number: props.number,
-      isSorted: isSorted.value
+      isSorted: false
     },
     wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16'
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Number } from '@/types'
 import MainLayout from '@/components/layouts/MainLayout.vue'
-import NumbersCard from './numbers/NumbersCard.vue'
+import NumbersCard from './results/NumbersCard.vue'
 import ContestsCard from './contests/ContestsCard.vue'
 import StatsCard from './stats/StatsCard.vue'
 
