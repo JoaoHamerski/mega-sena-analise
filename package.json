@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "tsc": "vue-tsc",
         "build": "vue-tsc && vite build",
         "lint": "eslint ./resources/js --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
         "lint-fix": "npm run lint -- --fix",

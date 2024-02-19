@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<ContestNumberProps>(), {
 const appStore = useAppStore()
 
 const heatMapEnabled = computed(() => appStore.heatMap)
+const isSelected = computed(() => appStore.selectedContestNumbers?.includes(props.number.number))
 
 const contestNumberAttrs = computed<ContestNumberTypesMap<object>>(() => ({
   normal: {
@@ -49,14 +50,15 @@ const textColorClass = computed(() =>
   props.number.relative_occurrence > 45 && heatMapEnabled.value ? 'text-base-100' : ''
 )
 
-const classes = computed(() => {
-  const componentClasses = []
+const borderColorClass = computed(() =>
+  isSelected.value ? ' border-success border-4 shadow shadow-success ' : ''
+)
 
-  componentClasses.push(textColorClass.value)
-  componentClasses.push(component.value.wrapperClass)
-
-  return componentClasses
-})
+const classes = computed(() => [
+  textColorClass.value,
+  component.value.wrapperClass,
+  borderColorClass.value
+])
 
 const style = computed<StyleValue>(() =>
   heatMapEnabled.value
@@ -70,7 +72,7 @@ const style = computed<StyleValue>(() =>
 <template>
   <div
     :class="classes"
-    class="transition-colors"
+    class="transition-all"
     :style="style"
   >
     <Component
