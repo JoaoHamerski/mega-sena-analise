@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Number } from '@/types'
+import { LotteryNumber } from '@/types'
 
-type ContestNumberCompactProps = {
-  number: Number
+export type ContestNumberCompactProps = {
+  number: LotteryNumber
 }
 
 defineProps<ContestNumberCompactProps>()

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
-import { LateNumber, LateNumbersResponse } from '@/types'
+import { LateLotteryNumber, LateNumbersResponse } from '@/types'
 import LateNumberGrid from './LateNumbersGrid.vue'
 import sortBy from 'lodash-es/sortBy'
 
 const responseData = ref<LateNumbersResponse>({ data: [], late_by_days: 0 })
 const sortByContests = ref(false)
 
-const lateNumbers = computed<LateNumber[]>(() => {
+const lateNumbers = computed<LateLotteryNumber[]>(() => {
   const lateNumbers = responseData.value.data
 
   if (sortByContests.value) {

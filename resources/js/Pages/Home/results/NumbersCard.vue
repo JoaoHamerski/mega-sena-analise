@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Number } from '@/types'
+import type { LotteryNumber } from '@/types'
 import { computed, ref } from 'vue'
 import sortBy from 'lodash-es/sortBy'
 import reverse from 'lodash-es/reverse'
@@ -8,7 +8,7 @@ import NumbersCardFormOptions from './NumbersCardFormOptions.vue'
 import NumbersCardGrid from './NumbersCardGrid.vue'
 
 type NumbersCardProps = {
-  numbers: Number[]
+  numbers: LotteryNumber[]
 }
 
 const props = defineProps<NumbersCardProps>()

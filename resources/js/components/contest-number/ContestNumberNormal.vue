@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Number } from '@/types'
+import { LotteryNumber } from '@/types'
 
-type ContestNumberNormalProps = {
-  number: Number
+export type ContestNumberNormalProps = {
+  number: LotteryNumber
   isSorted: boolean
 }
 

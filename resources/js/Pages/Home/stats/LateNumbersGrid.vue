@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { LateNumber } from '@/types'
+import { LateLotteryNumber } from '@/types'
 import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 
 type LateNumberGrid = {
-  lateNumbers: LateNumber[]
+  lateNumbers: LateLotteryNumber[]
 }
 
 defineProps<LateNumberGrid>()

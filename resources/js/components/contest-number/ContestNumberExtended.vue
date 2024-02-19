@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { LateNumber } from '@/types'
+import { LateLotteryNumber } from '@/types'
 
-defineProps<{
-  lateNumber: LateNumber
-}>()
+export type ContestNumberExtendedProps = {
+  lateNumber: LateLotteryNumber
+}
+
+defineProps<ContestNumberExtendedProps>()
 </script>
 
 <template>

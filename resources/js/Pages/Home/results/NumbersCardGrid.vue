@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Number } from '@/types'
+import { LotteryNumber } from '@/types'
 import ContestNumber from '@/components/contest-number/ContestNumber.vue'
 
 type NumbersCardGrid = {
-  numbers: Number[]
+  numbers: LotteryNumber[]
 }
 
 defineProps<NumbersCardGrid>()

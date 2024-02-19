@@ -1,29 +1,33 @@
 <script setup lang="ts">
-import type { LateNumber, Number } from '@/types'
+import { type StyleValue, computed } from 'vue'
+import type {
+  ContestNumberProps,
+  ContestNumberAttrs,
+  ContestNumberTypesMap
+} from '@/types/components'
+import { contestNumberWrapperClass, contestNumberIs } from './contest-number-attrs'
 import { useAppStore } from '@/store/app-store'
-import { type StyleValue, type Component, computed } from 'vue'
-import ContestNumberNormal from './ContestNumberNormal.vue'
-import ContestNumberCompact from './ContestNumberCompact.vue'
-import ContestNumberExtended from './ContestNumberExtended.vue'
 
-type ContestNumber = {
-  number: Number | LateNumber
-  type?: 'normal' | 'compact' | 'extended'
-}
-
-type ComponentAttrs = {
-  is: Component
-  attrs: object
-  wrapperClass: any
-}
-
-const props = withDefaults(defineProps<ContestNumber>(), {
+const props = withDefaults(defineProps<ContestNumberProps>(), {
   type: 'normal'
 })
 
 const appStore = useAppStore()
 
 const heatMapEnabled = computed(() => appStore.heatMap)
+
+const contestNumberAttrs = computed<ContestNumberTypesMap<object>>(() => ({
+  normal: {
+    number: props.number,
+    isSorted: false
+  },
+  extended: {
+    lateNumber: props.number
+  },
+  compact: {
+    number: props.number
+  }
+}))
 
 const bgColor = computed(() => {
   const MAX_DARKNESS = 80
@@ -35,61 +39,37 @@ const bgColor = computed(() => {
   return `hsl(0, 55%, ${lightness}%)`
 })
 
+const component = computed<ContestNumberAttrs>(() => ({
+  wrapperClass: contestNumberWrapperClass[props.type],
+  is: contestNumberIs[props.type],
+  attrs: contestNumberAttrs.value[props.type]
+}))
+
+const textColorClass = computed(() =>
+  props.number.relative_occurrence > 45 && heatMapEnabled.value ? 'text-base-100' : ''
+)
+
 const classes = computed(() => {
-  const classes = []
+  const componentClasses = []
 
-  if (props.number.relative_occurrence > 45 && heatMapEnabled.value) {
-    classes.push('text-base-100')
-  }
+  componentClasses.push(textColorClass.value)
+  componentClasses.push(component.value.wrapperClass)
 
-  return classes
+  return componentClasses
 })
 
-const style = computed<StyleValue>(() => {
-  if (!heatMapEnabled.value) {
-    return {}
-  }
-
-  return {
-    backgroundColor: bgColor.value
-  }
-})
-
-const component = computed<ComponentAttrs>(() => {
-  if (props.type === 'extended') {
-    return {
-      is: ContestNumberExtended,
-      attrs: {
-        lateNumber: props.number as LateNumber
-      },
-      wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16'
-    }
-  }
-
-  if (props.type === 'compact') {
-    return {
-      is: ContestNumberCompact,
-      attrs: {
-        number: props.number
-      },
-      wrapperClass: 'p-2 flex items-center justify-center border-2 rounded-full w-10 h-10 text-sm'
-    }
-  }
-
-  return {
-    is: ContestNumberNormal,
-    attrs: {
-      number: props.number,
-      isSorted: false
-    },
-    wrapperClass: 'w-auto flex flex-col border-2 rounded justify-center items-center h-16'
-  }
-})
+const style = computed<StyleValue>(() =>
+  heatMapEnabled.value
+    ? {
+        backgroundColor: bgColor.value
+      }
+    : {}
+)
 </script>
 
 <template>
   <div
-    :class="[classes, component.wrapperClass]"
+    :class="classes"
     class="transition-colors"
     :style="style"
   >

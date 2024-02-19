@@ -1,10 +1,10 @@
-export type Number = {
+export type LotteryNumber = {
   number: number
   occurrences: number
   relative_occurrence: number
 }
 
-export type LateNumber = Number & {
+export type LateLotteryNumber = LotteryNumber & {
   last_contest: Contest
   late_by_contests: number
 }
@@ -12,19 +12,19 @@ export type LateNumber = Number & {
 export type Contest = {
   concurso: number
   data: string
-  bola_01: Number
-  bola_02: Number
-  bola_03: Number
-  bola_04: Number
-  bola_05: Number
-  bola_06: Number
+  bola_01: LotteryNumber
+  bola_02: LotteryNumber
+  bola_03: LotteryNumber
+  bola_04: LotteryNumber
+  bola_05: LotteryNumber
+  bola_06: LotteryNumber
 }
 
 export type LateNumbersResponse = {
-  data: LateNumber[]
+  data: LateLotteryNumber[]
   late_by_days: number
 }
 
-type Paginated<T> = {
+export type Paginated<T> = {
   data: T[]
 }
